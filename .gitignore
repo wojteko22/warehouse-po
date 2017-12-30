@@ -1,0 +1,15 @@
+build/
+/cache
+*-gitignore*
+.gradle/
+.idea
+*.iml
+*.ipr
+*.iws
+logs
+_tmp
+session_config.ini
+.directory
+/bin
+/*/bin
+/*/out/
