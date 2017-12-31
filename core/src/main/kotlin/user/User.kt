@@ -6,4 +6,4 @@ data class User(val name: String,
                 val password: String,
                 val pesel: String,
                 val address: Address,
-                val permissions: Set<UserPremission>)
+                val permissions: Set<UserPermission>)
