@@ -14,14 +14,22 @@ import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.joda.time.DateTime
 import org.springframework.stereotype.Component
+import java.util.*
 
 fun main(args: Array<String>) {
     connect {
-        drop(DeliveryOrders)
-        create(DeliveryOrders)
+        drop(DeliveryOrders, Providers)
+        create(DeliveryOrders, Providers)
+
+        arrayOf("BIO-HURT", "Antel", "Paswex", "Biotrans", "Trantrix").forEach { aName ->
+            Providers.insert {
+                it[name] = aName
+            }
+        }
 
         DeliveryOrders.insert {
             it[orderNumber] = "St. Petersburg"
+            it[provider] = Provider.random().id
         }
     }
 }
@@ -32,7 +40,6 @@ class DeliveryOrderRepositoryImpl : DeliveryOrderRepository {
         get() = connect {
             DeliveryOrder.all().map { it.toDto() }
         }
-
 }
 
 class DeliveryOrder(id: EntityID<Int>) : IntEntity(id) {
@@ -40,17 +47,36 @@ class DeliveryOrder(id: EntityID<Int>) : IntEntity(id) {
 
     private var orderNumber by DeliveryOrders.orderNumber
     private var predictedDeliveryDate by DeliveryOrders.predictedDeliveryDate
+    private var provider by Provider referencedOn DeliveryOrders.provider
 
-    fun toDto() = DeliveryOrderDto(orderNumber, predictedDeliveryDate.toLocalDate().toString())
+    fun toDto() = DeliveryOrderDto(orderNumber, predictedDeliveryDate.toLocalDate().toString(), provider.name)
 }
 
 object DeliveryOrders : IntIdTable() {
     val orderNumber = varchar("order_number", 255)
     val orderDate = date("order_date").default(DateTime.now())
     val predictedDeliveryDate = date("predicted_delivery_date").default(DateTime.now().plusDays(5))
+    val provider = reference("provider", Providers)
 }
+
+class Provider(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<Provider>(Providers)
+
+    var name by Providers.name
+}
+
+object Providers : IntIdTable() {
+    val name = varchar("name", 255)
+}
+
 
 fun <T> connect(statement: Transaction.() -> T): T {
     Database.connect("jdbc:mysql://localhost/warehouse", driver = "com.mysql.jdbc.Driver", user = "root")
     return transaction(statement)
+}
+
+fun <T: IntEntity> IntEntityClass<T>.random(): T {
+    val quatity = count()
+    val index = Random().nextInt(quatity) + 1
+    return get(index)
 }
