@@ -16,8 +16,9 @@ class MailService {
     fun sendEmail(mailInfo: Mail) {
         val message = sender.createMimeMessage()
         val helper = MimeMessageHelper(message)
-        val template = freemarkerConfig.getTemplate(mailProperties.mailTemplateName)
-        val text = FreeMarkerTemplateUtils.processTemplateIntoString(template, mailInfo.model)
+        val template = freemarkerConfig.getTemplate(mailProperties.templateName)
+        val configurationLinkPrefix = mailProperties.configurationLinkPrefix ?: throw NullPointerException("Configuration link can not be null")
+        val text = FreeMarkerTemplateUtils.processTemplateIntoString(template, mailInfo.contentDataModel(configurationLinkPrefix))
 
         helper.setTo(mailInfo.userMail)
         helper.setText(text, true)
