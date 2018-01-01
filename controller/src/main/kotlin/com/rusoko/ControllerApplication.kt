@@ -1,4 +1,4 @@
-package com.rusoko.controller
+package com.rusoko
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication

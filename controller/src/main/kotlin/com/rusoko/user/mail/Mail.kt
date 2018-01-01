@@ -1,4 +1,4 @@
-package com.rusoko.controller.user.mail
+package com.rusoko.user.mail
 
 import com.rusoko.api.UserRegisterDto
 
