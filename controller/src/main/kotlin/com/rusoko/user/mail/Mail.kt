@@ -1,6 +1,6 @@
 package com.rusoko.user.mail
 
-import com.rusoko.api.UserRegisterDto
+import com.rusoko.api.dto.UserRegisterDto
 
 data class Mail(private val userName: String, val userMail: String, val subject: String) {
     val model: Map<String, String>

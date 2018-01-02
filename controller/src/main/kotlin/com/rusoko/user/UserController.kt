@@ -1,6 +1,6 @@
 package com.rusoko.user
 
-import com.rusoko.api.UserRegisterDto
+import com.rusoko.api.dto.UserRegisterDto
 import com.rusoko.user.mail.Mail
 import com.rusoko.user.mail.MailService
 import org.springframework.beans.factory.annotation.Autowired
