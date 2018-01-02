@@ -15,6 +15,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.joda.time.DateTime
 import org.springframework.stereotype.Component
 import java.util.*
+import kotlin.math.pow
 
 fun main(args: Array<String>) {
     connect {
@@ -27,9 +28,13 @@ fun main(args: Array<String>) {
             }
         }
 
-        DeliveryOrders.insert {
-            it[orderNumber] = "St. Petersburg"
-            it[provider] = Provider.random().id
+        repeat(10) {
+            DeliveryOrders.insert {
+                it[orderNumber] = "D-" + random.nextNumber(4)
+                it[orderDate] = DateTime.now().minusDays(random.nextInt(30))
+                it[predictedDeliveryDate] = DateTime.now().plusDays(random.nextInt(10))
+                it[provider] = Provider.random().id
+            }
         }
     }
 }
@@ -53,9 +58,9 @@ class DeliveryOrder(id: EntityID<Int>) : IntEntity(id) {
 }
 
 object DeliveryOrders : IntIdTable() {
-    val orderNumber = varchar("order_number", 255)
-    val orderDate = date("order_date").default(DateTime.now())
-    val predictedDeliveryDate = date("predicted_delivery_date").default(DateTime.now().plusDays(5))
+    val orderNumber = varchar("order_number", 255).uniqueIndex()
+    val orderDate = date("order_date")
+    val predictedDeliveryDate = date("predicted_delivery_date")
     val provider = reference("provider", Providers)
 }
 
@@ -75,8 +80,15 @@ fun <T> connect(statement: Transaction.() -> T): T {
     return transaction(statement)
 }
 
-fun <T: IntEntity> IntEntityClass<T>.random(): T {
-    val quatity = count()
-    val index = Random().nextInt(quatity) + 1
+fun <T : IntEntity> IntEntityClass<T>.random(): T {
+    val quantity = count()
+    val index = Random().nextInt(quantity) + 1
     return get(index)
+}
+
+val random = Random()
+
+fun Random.nextNumber(length: Int): String {
+    val bound = 10f.pow(length).toInt()
+    return nextInt(bound).toString().padStart(4, '0')
 }
