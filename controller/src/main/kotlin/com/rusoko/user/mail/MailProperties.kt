@@ -6,5 +6,6 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 @ConfigurationProperties(prefix = "mail")
 class MailProperties {
-    val mailTemplateName = "configurationEmailTemplate.ftl"
+    var templateName: String? = null
+    var configurationLinkPrefix: String? = null
 }
