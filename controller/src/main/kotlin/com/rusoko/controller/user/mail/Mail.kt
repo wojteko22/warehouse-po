@@ -1,6 +1,6 @@
 package com.rusoko.controller.user.mail
 
-import com.rusoko.api.UserRegisterDto
+import com.rusoko.api.user.UserRegisterDto
 
 data class Mail(private val userName: String, val userMail: String, val subject: String) {
     fun contentDataModel(configurationLinkPrefix: String): Map<String, String> =

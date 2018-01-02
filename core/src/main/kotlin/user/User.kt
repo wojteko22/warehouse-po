@@ -1,5 +1,7 @@
 package user
 
+import com.rusoko.api.user.Address
+
 data class User(val name: String,
                 val surname: String,
                 val email: String,
