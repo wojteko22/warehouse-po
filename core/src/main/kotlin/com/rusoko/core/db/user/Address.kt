@@ -1,6 +1,6 @@
 package com.rusoko.core.db.user
 
-import com.rusoko.api.user.AddressDto
+import com.rusoko.api.dto.AddressDto
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass

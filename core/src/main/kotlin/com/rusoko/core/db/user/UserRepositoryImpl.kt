@@ -1,8 +1,8 @@
 package com.rusoko.core.db.user
 
-import com.rusoko.api.user.UserRegisterDto
+import com.rusoko.api.dto.UserRegisterDto
 import com.rusoko.api.user.UserRepository
-import com.rusoko.core.db.connect
+import com.rusoko.core.connect
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.sql.SchemaUtils.create
 import org.jetbrains.exposed.sql.SchemaUtils.drop

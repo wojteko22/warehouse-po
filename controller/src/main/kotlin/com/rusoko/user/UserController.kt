@@ -1,7 +1,7 @@
 package com.rusoko.user
 
-import com.rusoko.api.user.UserConfigurationDto
-import com.rusoko.api.user.UserRegisterDto
+import com.rusoko.api.dto.UserRegisterDto
+import com.rusoko.api.dto.UserConfigurationDto
 import com.rusoko.api.user.UserRepository
 import com.rusoko.user.mail.Mail
 import com.rusoko.user.mail.MailService
