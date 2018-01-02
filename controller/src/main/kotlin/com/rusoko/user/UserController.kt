@@ -1,31 +1,31 @@
 package com.rusoko.user
 
-import com.rusoko.api.dto.UserRegisterDto
 import com.rusoko.api.dto.UserConfigurationDto
+import com.rusoko.api.dto.UserRegisterDto
 import com.rusoko.api.user.UserRepository
 import com.rusoko.user.mail.Mail
 import com.rusoko.user.mail.MailService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
-@Controller
-@RequestMapping("/com/rusoko/core/db/user")
+@RestController
+@RequestMapping("/user")
 class UserController(private val repository: UserRepository) {
     @Autowired private lateinit var mailService: MailService
 
     @PostMapping("/add")
-    private fun addUser(@RequestBody userRegisterInfo: UserRegisterDto) {
-        repository.add(userRegisterInfo)
+    fun addUser(@RequestBody userRegisterInfo: UserRegisterDto) {
+        val userId = repository.add(userRegisterInfo)
         val mailInfo = Mail.getFromUserRegisterInfo(userRegisterInfo)
-        mailService.sendEmail(mailInfo)
+        mailService.sendEmail(mailInfo, userId)
     }
 
     @PostMapping("/configure")
-    private fun configureUser(@RequestBody userConfigurationDto: UserConfigurationDto) {
-
+    fun configureUser(@RequestBody userConfigurationDto: UserConfigurationDto) {
+        repository.configure(userConfigurationDto)
     }
 
 }

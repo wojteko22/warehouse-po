@@ -1,3 +1,3 @@
 package com.rusoko.api.dto
 
-class UserConfigurationDto(val identifier: String, val pesel: String, val password: String, val address: AddressDto)
+class UserConfigurationDto(val id: Int, val pesel: String, val password: String, val address: AddressDto)

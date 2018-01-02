@@ -13,12 +13,13 @@ class MailService {
     @Autowired private lateinit var freemarkerConfig: Configuration
     @Autowired private lateinit var mailProperties: MailProperties
 
-    fun sendEmail(mailInfo: Mail) {
+    fun sendEmail(mailInfo: Mail, userId: Int) {
         val message = sender.createMimeMessage()
         val helper = MimeMessageHelper(message)
         val template = freemarkerConfig.getTemplate(mailProperties.templateName)
         val configurationLinkPrefix = mailProperties.configurationLinkPrefix ?: throw NullPointerException("Configuration link can not be null")
-        val text = FreeMarkerTemplateUtils.processTemplateIntoString(template, mailInfo.contentDataModel(configurationLinkPrefix))
+        val configurationLink = configurationLinkPrefix + '/' + userId
+        val text = FreeMarkerTemplateUtils.processTemplateIntoString(template, mailInfo.contentDataModel(configurationLink))
 
         helper.setTo(mailInfo.userMail)
         helper.setText(text, true)
