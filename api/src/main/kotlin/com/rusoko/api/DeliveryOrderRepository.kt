@@ -1,5 +1,6 @@
 package com.rusoko.api
 
+import com.rusoko.api.dto.CommodityDto
 import com.rusoko.api.dto.DeliveryOrderDetailDto
 import com.rusoko.api.dto.DeliveryOrderDto
 import com.rusoko.api.dto.DifferenceReportDto
@@ -12,4 +13,6 @@ interface DeliveryOrderRepository {
     fun createDefaultDifferenceReport(deliveryOrderId: Int)
 
     fun differenceReport(deliveryOrderId: Int): DifferenceReportDto
+
+    fun availableCommodities(deliveryOrderId: Int): Collection<CommodityDto>
 }

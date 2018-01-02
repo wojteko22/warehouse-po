@@ -39,6 +39,14 @@ class DeliveryOrderRepositoryImpl : DeliveryOrderRepository {
     }
 
     override fun differenceReport(deliveryOrderId: Int) = connect {
-        DifferenceReport.find { DifferenceReports.deliveryOrder.eq(deliveryOrderId) }.first().toDto()
+        findDifferenceReport(deliveryOrderId).toDto()
     }
+
+    override fun availableCommodities(deliveryOrderId: Int) = connect {
+        findDifferenceReport(deliveryOrderId).availableCommodities.map { it.toDto() }
+    }
+
+    private fun findDifferenceReport(deliveryOrderId: Int) = DifferenceReport.find {
+        DifferenceReports.deliveryOrder.eq(deliveryOrderId)
+    }.first()
 }

@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
 class DifferenceReportPosition(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<DifferenceReportPosition>(DifferenceReportPositions)
 
-    private var commodity by Commodity referencedOn DifferenceReportPositions.commodity
+    var commodity by Commodity referencedOn DifferenceReportPositions.commodity
     private var deliveredQuantity by DifferenceReportPositions.deliveredQuantity
     private var differenceReport by DifferenceReport referencedOn DifferenceReportPositions.differenceReport
 

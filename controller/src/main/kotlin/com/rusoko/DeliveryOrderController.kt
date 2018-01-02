@@ -22,4 +22,7 @@ class DeliveryOrderController(private val repository: DeliveryOrderRepository) {
 
     @GetMapping("/{id}/difference-report")
     fun getDifferenceReport(@PathVariable id: Int) = repository.differenceReport(id)
+
+    @GetMapping("/{id}/difference-report/available-commodities")
+    fun availableCommodities(@PathVariable id: Int) = repository.availableCommodities(id)
 }
