@@ -1,4 +1,4 @@
-package com.rusoko.controller.user.mail
+package com.rusoko.user.mail
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration

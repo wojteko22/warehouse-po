@@ -1,4 +1,4 @@
-package com.rusoko.controller
+package com.rusoko
 
 import org.junit.Test
 import org.junit.runner.RunWith

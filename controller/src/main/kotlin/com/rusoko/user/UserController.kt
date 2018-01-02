@@ -1,9 +1,9 @@
-package com.rusoko.controller.user
+package com.rusoko.user
 
 import com.rusoko.api.user.UserConfigurationDto
 import com.rusoko.api.user.UserRegisterDto
-import com.rusoko.controller.user.mail.Mail
-import com.rusoko.controller.user.mail.MailService
+import com.rusoko.user.mail.Mail
+import com.rusoko.user.mail.MailService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PostMapping

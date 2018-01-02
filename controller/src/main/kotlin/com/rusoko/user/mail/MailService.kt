@@ -1,4 +1,4 @@
-package com.rusoko.controller.user.mail
+package com.rusoko.user.mail
 
 import freemarker.template.Configuration
 import org.springframework.beans.factory.annotation.Autowired
