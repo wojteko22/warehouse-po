@@ -30,8 +30,8 @@ fun main(args: Array<String>) { // Needs Providers
 class DeliveryOrderPosition(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<DeliveryOrderPosition>(DeliveryOrderPositions)
 
-    private var commodity by Commodity referencedOn DeliveryOrderPositions.commodity
-    private var quantity by DeliveryOrderPositions.quantity
+    var commodity by Commodity referencedOn DeliveryOrderPositions.commodity
+    var quantity by DeliveryOrderPositions.quantity
 
     fun toDto() = DeliveryOrderPositionDto(commodity.toDto(), quantity)
 }

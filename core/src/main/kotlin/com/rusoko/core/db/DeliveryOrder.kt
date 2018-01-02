@@ -32,11 +32,11 @@ fun main(args: Array<String>) { // Needs Providers
 class DeliveryOrder(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<DeliveryOrder>(DeliveryOrders)
 
-    private var orderNumber by DeliveryOrders.orderNumber
+    var orderNumber by DeliveryOrders.orderNumber
     private var predictedDeliveryDate by DeliveryOrders.predictedDeliveryDate
     private var provider by Provider referencedOn DeliveryOrders.provider
 
-    private val positions by DeliveryOrderPosition referrersOn DeliveryOrderPositions.deliveryOrder
+    val positions by DeliveryOrderPosition referrersOn DeliveryOrderPositions.deliveryOrder
 
     fun toDto() = DeliveryOrderDto(orderNumber, predictedDeliveryDate.toLocalDate().toString(), provider.name)
     fun toDetailDto() = DeliveryOrderDetailDto(orderNumber, provider.name, positions.map { it.toDto() })
