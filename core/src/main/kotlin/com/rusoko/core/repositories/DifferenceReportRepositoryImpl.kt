@@ -2,10 +2,8 @@ package com.rusoko.core.repositories
 
 import com.rusoko.api.DifferenceReportRepository
 import com.rusoko.core.connect
-import com.rusoko.core.db.DeliveryOrder
-import com.rusoko.core.db.DifferenceReport
-import com.rusoko.core.db.DifferenceReportPositions
-import com.rusoko.core.db.DifferenceReports
+import com.rusoko.core.db.*
+import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.sql.*
 import org.springframework.stereotype.Component
 
@@ -52,5 +50,14 @@ class DifferenceReportRepositoryImpl : DifferenceReportRepository {
 
     override fun availableCommodities(id: Int) = connect {
         DifferenceReport[id].availableCommodities.map { it.toDto() }
+    }
+
+    override fun addCommodity(id: Int, commodityId: Int) {
+        connect {
+            DifferenceReportPositions.insert {
+                it[commodity] = EntityID(commodityId, Commodities)
+                it[differenceReport] = EntityID(id, DifferenceReports)
+            }
+        }
     }
 }

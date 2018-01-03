@@ -21,8 +21,8 @@ class DifferenceReportController(private val repository: DifferenceReportReposit
     @GetMapping("/{id}/available-commodities")
     fun availableCommodities(@PathVariable id: Int) = repository.availableCommodities(id)
 
-    @PostMapping("/{id}/difference-report")
-    fun addCommodity(@PathVariable id: Int, @RequestParam commodityIt: Int) {
-        TODO()
+    @PostMapping("/{id}/positions")
+    fun addCommodity(@PathVariable id: Int, @RequestParam commodityId: Int) {
+        repository.addCommodity(id, commodityId)
     }
 }
