@@ -10,7 +10,7 @@ interface DeliveryOrderRepository {
 
     operator fun get(id: Int): DeliveryOrderDetailDto
 
-    fun createDefaultDifferenceReport(deliveryOrderId: Int)
+    fun createDefaultDifferenceReport(deliveryOrderId: Int): Int
 
     fun differenceReport(deliveryOrderId: Int): DifferenceReportDto
 
