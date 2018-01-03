@@ -20,7 +20,7 @@ class DifferenceReportPosition(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<DifferenceReportPosition>(DifferenceReportPositions)
 
     var commodity by Commodity referencedOn DifferenceReportPositions.commodity
-    private var deliveredQuantity by DifferenceReportPositions.deliveredQuantity
+    var deliveredQuantity by DifferenceReportPositions.deliveredQuantity
     private var differenceReport by DifferenceReport referencedOn DifferenceReportPositions.differenceReport
 
     private val orderedQuantity by lazy {
@@ -28,10 +28,10 @@ class DifferenceReportPosition(id: EntityID<Int>) : IntEntity(id) {
                 .find { it.commodity.id == commodity.id }?.quantity ?: BigDecimal(0)
     }
 
-    fun toDto() = DifferenceReportPositionDto(commodity.toDto(), orderedQuantity, deliveredQuantity)
+    fun toDto() = DifferenceReportPositionDto(id.value, commodity.toDto(), orderedQuantity, deliveredQuantity)
 }
 
-object DifferenceReportPositions : IntIdTable() {
+object DifferenceReportPositions : IntIdTable("difference_report_positions") {
     val commodity = reference("commodity", Commodities)
     val deliveredQuantity = decimal("delivered_quantity", 13, 3).default(BigDecimal(0))
     val differenceReport = reference("difference_report", DifferenceReports)

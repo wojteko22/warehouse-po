@@ -2,12 +2,9 @@ package com.rusoko.core
 
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.Transaction
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
-import java.util.*
+import java.util.Random
 import kotlin.math.pow
 
 fun <T> connect(statement: Transaction.() -> T): T {
@@ -17,7 +14,9 @@ fun <T> connect(statement: Transaction.() -> T): T {
 
 fun <T : IntEntity> IntEntityClass<T>.random(): T {
     val quantity = count()
-    val index = Random().nextInt(quantity) + 1
+    val min = table.slice(table.id.min()).selectAll().first()[table.id.min()]?.value
+            ?: throw IllegalStateException("No elements in table $table")
+    val index = min + Random().nextInt(quantity)
     return get(index)
 }
 

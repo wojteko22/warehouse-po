@@ -19,13 +19,15 @@ class DifferenceReport(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<DifferenceReport>(DifferenceReports)
 
     var deliveryOrder by DeliveryOrder referencedOn DifferenceReports.deliveryOrder
+    var ready by DifferenceReports.ready
 
-    private val positions by DifferenceReportPosition referrersOn DifferenceReportPositions.differenceReport
+    val positions by DifferenceReportPosition referrersOn DifferenceReportPositions.differenceReport
     val availableCommodities = Commodity.all() - positions.map { it.commodity }
 
     fun toDto() = DifferenceReportDto(deliveryOrder.orderNumber, positions.map { it.toDto() })
 }
 
-object DifferenceReports : IntIdTable() {
+object DifferenceReports : IntIdTable("difference_reports") {
     val deliveryOrder = reference("delivery_order", DeliveryOrders)
+    val ready = bool("ready").default(false)
 }
