@@ -8,7 +8,7 @@ import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.Table
 
 object Users : IntIdTable() {
-    val login = varchar("login", 255)
+    val login = varchar("login", 255).uniqueIndex()
     val password = varchar("password", 15).nullable()
     val fstName = varchar("fstName", 255)
     val lastName = varchar("lastName", 255)
