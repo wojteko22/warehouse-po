@@ -60,4 +60,10 @@ class DifferenceReportRepositoryImpl : DifferenceReportRepository {
             }
         }
     }
+
+    override fun send(id: Int) {
+        connect {
+            DifferenceReport[id].ready = true
+        }
+    }
 }

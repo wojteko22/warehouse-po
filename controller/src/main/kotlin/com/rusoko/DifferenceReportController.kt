@@ -25,4 +25,8 @@ class DifferenceReportController(private val repository: DifferenceReportReposit
     fun addCommodity(@PathVariable id: Int, @RequestParam commodityId: Int) {
         repository.addCommodity(id, commodityId)
     }
+
+    @PatchMapping("/{id}")
+    fun send(@PathVariable id: Int) = repository.send(id)
+
 }

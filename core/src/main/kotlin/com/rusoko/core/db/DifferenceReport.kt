@@ -19,6 +19,7 @@ class DifferenceReport(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<DifferenceReport>(DifferenceReports)
 
     var deliveryOrder by DeliveryOrder referencedOn DifferenceReports.deliveryOrder
+    var ready by DifferenceReports.ready
 
     private val positions by DifferenceReportPosition referrersOn DifferenceReportPositions.differenceReport
     val availableCommodities = Commodity.all() - positions.map { it.commodity }
@@ -28,4 +29,5 @@ class DifferenceReport(id: EntityID<Int>) : IntEntity(id) {
 
 object DifferenceReports : IntIdTable() {
     val deliveryOrder = reference("delivery_order", DeliveryOrders)
+    val ready = bool("ready").default(false)
 }
