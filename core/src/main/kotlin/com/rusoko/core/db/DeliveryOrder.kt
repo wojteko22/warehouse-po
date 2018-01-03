@@ -42,7 +42,7 @@ class DeliveryOrder(id: EntityID<Int>) : IntEntity(id) {
     fun toDetailDto() = DeliveryOrderDetailDto(orderNumber, provider.name, positions.map { it.toDto() })
 }
 
-object DeliveryOrders : IntIdTable() {
+object DeliveryOrders : IntIdTable("delivery_orders") {
     val orderNumber = varchar("order_number", 255).uniqueIndex()
     val orderDate = date("order_date")
     val predictedDeliveryDate = date("predicted_delivery_date")

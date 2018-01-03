@@ -27,7 +27,7 @@ class DifferenceReport(id: EntityID<Int>) : IntEntity(id) {
     fun toDto() = DifferenceReportDto(deliveryOrder.orderNumber, positions.map { it.toDto() })
 }
 
-object DifferenceReports : IntIdTable() {
+object DifferenceReports : IntIdTable("difference_reports") {
     val deliveryOrder = reference("delivery_order", DeliveryOrders)
     val ready = bool("ready").default(false)
 }

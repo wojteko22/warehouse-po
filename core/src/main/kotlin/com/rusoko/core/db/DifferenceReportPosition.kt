@@ -31,7 +31,7 @@ class DifferenceReportPosition(id: EntityID<Int>) : IntEntity(id) {
     fun toDto() = DifferenceReportPositionDto(id.value, commodity.toDto(), orderedQuantity, deliveredQuantity)
 }
 
-object DifferenceReportPositions : IntIdTable() {
+object DifferenceReportPositions : IntIdTable("difference_report_positions") {
     val commodity = reference("commodity", Commodities)
     val deliveredQuantity = decimal("delivered_quantity", 13, 3).default(BigDecimal(0))
     val differenceReport = reference("difference_report", DifferenceReports)

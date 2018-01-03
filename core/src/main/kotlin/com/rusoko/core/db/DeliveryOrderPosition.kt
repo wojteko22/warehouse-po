@@ -36,7 +36,7 @@ class DeliveryOrderPosition(id: EntityID<Int>) : IntEntity(id) {
     fun toDto() = DeliveryOrderPositionDto(commodity.toDto(), quantity)
 }
 
-object DeliveryOrderPositions : IntIdTable() {
+object DeliveryOrderPositions : IntIdTable("delivery_order_positions") {
     val quantity = decimal("quantity", 13, 3)
     val deliveryOrder = reference("delivery_order", DeliveryOrders)
     val commodity = reference("commodity", Commodities)
