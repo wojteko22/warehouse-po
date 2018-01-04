@@ -1,4 +1,4 @@
-package com.rusoko.api.user
+package com.rusoko.api
 
 import com.rusoko.api.dto.UserConfigurationDto
 import com.rusoko.api.dto.UserRegisterDto

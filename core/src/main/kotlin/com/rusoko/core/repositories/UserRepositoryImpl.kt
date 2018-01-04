@@ -3,7 +3,7 @@ package com.rusoko.core.repositories
 import com.rusoko.api.dto.AddressDto
 import com.rusoko.api.dto.UserConfigurationDto
 import com.rusoko.api.dto.UserRegisterDto
-import com.rusoko.api.user.UserRepository
+import com.rusoko.api.UserRepository
 import com.rusoko.core.connect
 import com.rusoko.core.db.user.*
 import org.jetbrains.exposed.dao.EntityID
