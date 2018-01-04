@@ -1,7 +1,7 @@
 package com.rusoko.core
 
-import com.rusoko.core.db.AcceptanceOrderPosition
-import com.rusoko.core.db.DifferenceReport
+import com.rusoko.core.db.delivery.AcceptanceOrderPosition
+import com.rusoko.core.db.delivery.DifferenceReport
 
 fun main(args: Array<String>) {
     connect {

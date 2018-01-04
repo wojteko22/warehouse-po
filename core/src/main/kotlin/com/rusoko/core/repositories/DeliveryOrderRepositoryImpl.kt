@@ -3,7 +3,7 @@ package com.rusoko.core.repositories
 import com.rusoko.api.DeliveryOrderRepository
 import com.rusoko.api.dto.DeliveryOrderDto
 import com.rusoko.core.connect
-import com.rusoko.core.db.DeliveryOrder
+import com.rusoko.core.db.delivery.DeliveryOrder
 import org.springframework.stereotype.Component
 
 @Component

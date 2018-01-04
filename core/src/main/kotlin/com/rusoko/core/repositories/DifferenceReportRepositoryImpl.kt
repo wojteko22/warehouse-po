@@ -2,7 +2,7 @@ package com.rusoko.core.repositories
 
 import com.rusoko.api.DifferenceReportRepository
 import com.rusoko.core.connect
-import com.rusoko.core.db.*
+import com.rusoko.core.db.delivery.*
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.sql.*
 import org.springframework.stereotype.Component

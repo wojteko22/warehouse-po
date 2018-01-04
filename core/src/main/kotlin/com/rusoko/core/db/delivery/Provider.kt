@@ -1,4 +1,4 @@
-package com.rusoko.core.db
+package com.rusoko.core.db.delivery
 
 import com.rusoko.core.connect
 import com.rusoko.core.new
