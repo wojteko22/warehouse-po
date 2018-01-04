@@ -1,4 +1,3 @@
-
 import {Component} from "@angular/core";
 import {UserService} from "../user.service";
 
@@ -10,5 +9,6 @@ import {UserService} from "../user.service";
 
 export class UserRegisterComponent {
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+  }
 }
