@@ -37,6 +37,11 @@ class UserRepositoryImpl : UserRepository {
                 user.pesel = userDto.pesel
                 user.address = Address.createFromDto(userDto.address)
             }
+
+    override fun exist(userMail: String): Boolean =
+            connect {
+                !User.find { Users.login eq userMail }.empty()
+            }
 }
 
 // --------------------------------------------- INITIALIZE DB AND TEST ---------------------------------------------------------------------------

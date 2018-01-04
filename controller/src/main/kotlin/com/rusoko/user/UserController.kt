@@ -6,10 +6,7 @@ import com.rusoko.api.user.UserRepository
 import com.rusoko.user.mail.Mail
 import com.rusoko.user.mail.MailService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/user")
@@ -24,8 +21,11 @@ class UserController(private val repository: UserRepository) {
     }
 
     @PostMapping("/configure")
-    fun configureUser(@RequestBody userConfigurationDto: UserConfigurationDto) {
-        repository.configure(userConfigurationDto)
-    }
+    fun configureUser(@RequestBody userConfigurationDto: UserConfigurationDto) =
+            repository.configure(userConfigurationDto)
+
+    @GetMapping("exist/{userMail}")
+    fun checkIfExist(@PathVariable userMail: String): Boolean =
+            repository.exist(userMail)
 
 }
