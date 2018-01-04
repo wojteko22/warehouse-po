@@ -1,4 +1,4 @@
-package com.rusoko
+package com.rusoko.delivery
 
 import com.rusoko.api.DifferenceReportRepository
 import org.springframework.http.HttpStatus

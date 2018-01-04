@@ -1,4 +1,4 @@
-package com.rusoko
+package com.rusoko.delivery
 
 import com.rusoko.api.DifferenceReportPositionRepository
 import org.springframework.web.bind.annotation.*
