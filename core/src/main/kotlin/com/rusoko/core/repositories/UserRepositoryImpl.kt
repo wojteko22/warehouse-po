@@ -19,7 +19,7 @@ class UserRepositoryImpl : UserRepository {
             connect {
                 val user = User.createFromDto(userDto)
                 insertPermissions(user.id, userDto.permissions)
-                return@connect user.id.value
+                user.id.value
             }
 
     private fun insertPermissions(user: EntityID<Int>, permissions: Set<String>) =
@@ -32,10 +32,10 @@ class UserRepositoryImpl : UserRepository {
 
     override fun configure(userDto: UserConfigurationDto) =
             connect {
-                val user = User.findById(userDto.id)
-                user?.password = userDto.password
-                user?.pesel = userDto.pesel
-                user?.address = Address.createFromDto(userDto.address)
+                val user = User[userDto.id]
+                user.password = userDto.password
+                user.pesel = userDto.pesel
+                user.address = Address.createFromDto(userDto.address)
             }
 }
 

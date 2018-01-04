@@ -16,7 +16,7 @@ object Addresses : IntIdTable() {
 
 class Address(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<Address>(Addresses) {
-        fun createFromDto(addressDto: AddressDto) =
+        fun createFromDto(addressDto: AddressDto): Address =
                 Address.new {
                     town = addressDto.town
                     postalCode = addressDto.postalCode
