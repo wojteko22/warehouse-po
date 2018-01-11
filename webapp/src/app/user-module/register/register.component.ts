@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {UserService} from "../user.service";
+import {MdIconsDefinitions} from "../../md-icons-definitions";
 
 @Component({
   selector: 'user-register',
@@ -8,6 +9,20 @@ import {UserService} from "../user.service";
 })
 
 export class UserRegisterComponent {
+  mdIcons = MdIconsDefinitions;
+  title: string = "Rejestracja";
+  menuOpions: MenuElements[] = [
+    {
+      icon: this.mdIcons.start_page,
+      optionName: "Strona główna",
+      destUrl: ""
+    },
+    {
+      icon: this.mdIcons.add_user,
+      optionName: "Dodaj użytkownika",
+      destUrl: ""
+    }
+  ];
 
   constructor(private userService: UserService) {
   }
