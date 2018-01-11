@@ -1,0 +1,29 @@
+<mat-sidenav-container class="menu-container">
+  <mat-sidenav mode="side" class="menu-drawer">
+    <div class="drawer-user-box">
+
+    </div>
+    <div class="menu-option" *ngFor="let option of menuOptions">
+      <mat-icon>{{option.icon}}</mat-icon>
+      <span>
+        {{option.optionName}}
+      </span>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content class="menu-content">
+    <mat-toolbar class="menu-toolbar">
+      <button mat-button (click)="toggleMenu()">
+        <mat-icon>{{mdIcons.menu}}</mat-icon>
+      </button>
+      <span class="center">{{title}}</span>
+    </mat-toolbar>
+
+    <section class="container component-content">
+      <div class="row">
+        <div class="col-xs-12">
+          <ng-content></ng-content>
+        </div>
+      </div>
+    </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>

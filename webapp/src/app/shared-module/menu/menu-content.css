@@ -1,0 +1,45 @@
+.menu-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.menu-content {
+  background-color: aquamarine;
+}
+
+.component-content {
+  padding: 20px;
+}
+
+.menu-toolbar {
+  background-color: black;
+  color: white;
+}
+
+.menu-drawer {
+  width: 25%;
+}
+
+.drawer-user-box {
+  background-color: #5d5d5d;
+  width: auto;
+  height: 30%;
+}
+
+.menu-option {
+  padding: 20px 20px 0px;
+}
+
+.menu-option span {
+  font-size: 20px;
+  margin-left: 20px;
+  font-family: Arial, serif;
+  font-style: oblique;
+}
+
+.center {
+  margin: auto;
+}
