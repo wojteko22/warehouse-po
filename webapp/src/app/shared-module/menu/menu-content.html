@@ -4,10 +4,14 @@
 
     </div>
     <div class="menu-option" *ngFor="let option of menuOptions">
-      <mat-icon>{{option.icon}}</mat-icon>
-      <span>
-        {{option.optionName}}
-      </span>
+      <a routerLink="{{option.routerLink}}" routerLinkActive="active-link">
+        <div>
+          <mat-icon>{{option.icon}}</mat-icon>
+          <span>
+            {{option.optionName}}
+          </span>
+        </div>
+      </a>
     </div>
   </mat-sidenav>
   <mat-sidenav-content class="menu-content">

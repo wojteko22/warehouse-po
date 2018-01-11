@@ -15,12 +15,12 @@ export class UserRegisterComponent {
     {
       icon: this.mdIcons.start_page,
       optionName: "Strona główna",
-      destUrl: ""
+      routerLink: ""
     },
     {
       icon: this.mdIcons.add_user,
       optionName: "Dodaj użytkownika",
-      destUrl: ""
+      routerLink: "/user"
     }
   ];
 

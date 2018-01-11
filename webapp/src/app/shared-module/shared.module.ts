@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {MaterialDesignModule} from "./material-design-module/material-design.module";
 import {MenuComponent} from "./menu/menu-content.component";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import {MenuComponent} from "./menu/menu-content.component";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialDesignModule
+    MaterialDesignModule,
+    RouterModule
   ],
   declarations: [
     MenuComponent
@@ -22,7 +24,8 @@ import {MenuComponent} from "./menu/menu-content.component";
     ReactiveFormsModule,
     HttpClientModule,
     MaterialDesignModule,
-    MenuComponent
+    MenuComponent,
+    RouterModule
   ],
   entryComponents: [
   ],

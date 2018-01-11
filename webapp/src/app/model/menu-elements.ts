@@ -1,5 +1,5 @@
 class MenuElements {
   icon: string;
   optionName: string;
-  destUrl: string
+  routerLink: string
 }

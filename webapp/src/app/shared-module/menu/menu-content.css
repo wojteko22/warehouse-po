@@ -43,3 +43,16 @@
 .center {
   margin: auto;
 }
+
+.menu-option a {
+  color: #000000;
+  text-decoration: none;
+}
+
+.menu-option a :hover {
+  color: #7c95ff;
+}
+
+.menu-option .active-link {
+  color: #164389;
+}
