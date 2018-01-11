@@ -20,6 +20,8 @@ import {
   MatTabsModule,
   MatProgressBarModule,
   MatAutocompleteModule,
+  MatSidenavModule,
+  MatIconModule,
 } from '@angular/material';
 
 @NgModule({
@@ -44,6 +46,8 @@ import {
     MatFormFieldModule,
     MatTabsModule,
     MatAutocompleteModule,
+    MatSidenavModule,
+    MatIconModule
   ],
   exports: [
     CommonModule,
@@ -66,6 +70,8 @@ import {
     MatFormFieldModule,
     MatTabsModule,
     MatAutocompleteModule,
+    MatSidenavModule,
+    MatIconModule
   ]
 })
 
