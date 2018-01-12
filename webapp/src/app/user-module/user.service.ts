@@ -17,7 +17,7 @@ export class UserService {
     return this.http.post(this.baseUrl + "/add", userDto).toPromise()
   }
 
-  getIsUniqueEmail(userMail: string): Promise<boolean> {
+  getIsExistEmail(userMail: string): Promise<boolean> {
     return this.http.get<boolean>(this.baseUrl + "/exist/" + userMail).toPromise()
   }
 }

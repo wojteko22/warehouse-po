@@ -24,7 +24,7 @@ class UserController(private val repository: UserRepository) {
     fun configureUser(@RequestBody userConfigurationDto: UserConfigurationDto) =
             repository.configure(userConfigurationDto)
 
-    @GetMapping("/exist/{userMail}")
+    @GetMapping("/exist/{userMail:.+}")
     fun checkIfExist(@PathVariable userMail: String): Boolean =
             repository.exist(userMail)
 

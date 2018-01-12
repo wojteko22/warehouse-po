@@ -65,8 +65,8 @@ export class UserRegisterComponent implements OnInit {
 
   async sendUserData() {
     const userDto = this.userData;
-    const isUnique = await this.userService.getIsUniqueEmail(userDto.email);
-    if (isUnique) {
+    const exist = await this.userService.getIsExistEmail(userDto.email);
+    if (!exist) {
       this.userService.postUserData(userDto)
     }
   //  todo: jak nie uniqie to jakieś komunikat
