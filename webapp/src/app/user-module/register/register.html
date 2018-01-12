@@ -1,0 +1,32 @@
+<menu-content [title]="title" [menuOptions]="menuOpions">
+  <h1>Fromularz danych</h1>
+  <form [formGroup]="userDataForm">
+    <div>
+      <mat-form-field>
+        <input matInput="" formControlName="name" placeholder="Imię">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput="" formControlName="surname" placeholder="Nazwisko">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput="" formControlName="email" placeholder="Email">
+      </mat-form-field>
+    </div>
+    <h3>Lista uprawnień</h3>
+    <div formArrayName="permissions" class="permissions-list">
+        <mat-selection-list>
+          <mat-list-option *ngFor="let permission of permissions.controls" value="{{permission.value}}">
+            {{permission.value}}
+          </mat-list-option>
+        </mat-selection-list>
+    </div>
+  </form>
+
+  <div class="center">
+    <button mat-raised-button color="primary" disabled="{{!isValid}}" (click)="sendUserData()">Dodaj użytkownika</button>
+  </div>
+</menu-content>

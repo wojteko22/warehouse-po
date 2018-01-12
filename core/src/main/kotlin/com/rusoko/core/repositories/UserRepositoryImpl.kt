@@ -14,6 +14,11 @@ import org.springframework.stereotype.Component
 
 @Component
 class UserRepositoryImpl : UserRepository {
+    override val permissions: List<String>
+        get() =
+            connect {
+                Permission.all().map { it.permissionName }
+            }
 
     override fun add(userDto: UserRegisterDto): Int =
             connect {

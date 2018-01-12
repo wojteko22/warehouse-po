@@ -1,0 +1,32 @@
+.permissions-list {
+  background-color: white;
+  width:50%;
+  min-width: 300px;
+}
+
+h1, h3 {
+  font-family: Arial, serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+h3 {
+  margin-left: 100px;
+}
+
+mat-form-field {
+  width:50%;
+  min-width: 300px;
+}
+
+form {
+  margin-left: 75px;
+  margin-right: 75px;
+}
+
+.center {
+  text-align: center;
+  padding:50px;
+}
