@@ -78,6 +78,6 @@ fun testInsertUser() {
 
 fun testConfigureUser() {
     val userDto = UserConfigurationDto(1, "99234598735", "okon",
-            AddressDto("Lubola", "99-235", "ciemna", "5", null))
+            AddressDto("Lubola", "99-235", "ciemna", "46/8"))
     UserRepositoryImpl().configure(userDto)
 }

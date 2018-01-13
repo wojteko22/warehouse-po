@@ -21,9 +21,16 @@ class Address(id: EntityID<Int>) : IntEntity(id) {
                     town = addressDto.town
                     postalCode = addressDto.postalCode
                     street = addressDto.street
-                    houseNumber = addressDto.houseNumber
-                    apartmentNumber = addressDto.apartmentNumber
+                    houseNumber = getHouseNumber(addressDto.number)
+                    apartmentNumber = getApartmentNumber(addressDto.number)
                 }
+
+        private fun getHouseNumber(number: String): String = number.substringBefore('/')
+        private fun getApartmentNumber(number: String): String? =
+                if (number.contains('/'))
+                    number.substringAfter('/')
+                else
+                    null
     }
 
     var town: String by Addresses.town
