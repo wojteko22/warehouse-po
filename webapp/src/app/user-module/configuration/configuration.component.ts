@@ -3,6 +3,9 @@ import {UserService} from "../user.service";
 import {ActivatedRoute} from "@angular/router";
 import {MdIconsDefinitions} from "../../md-icons-definitions";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MatDialog} from "@angular/material";
+import {DialogComponent} from "../../shared-module/dialog/dialog.component";
+import {DialogData} from "../../shared-module/dialog/dialog-data";
 
 @Component(
   {
@@ -20,7 +23,7 @@ export class UserConfigurationComponent {
   configurationForm: FormGroup;
   isValid = false;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder, private dialog: MatDialog) {
     this.route.params.subscribe(params => this.userId = params['id']);
     this.initForm()
   }
@@ -86,6 +89,18 @@ export class UserConfigurationComponent {
 
   sendConfigurationData() {
     this.userService.postUserConfigurationData(this.configurationDto);
-    this.configurationForm.reset()
+    this.configurationForm.reset();
+    this.showDialog()
+  }
+
+  private showDialog() {
+    const data: DialogData = {
+      title: "",
+      message: "Pomyślenie skonfigurowano konto. Czy chcesz się zalogować"
+    };
+    this.dialog.open(DialogComponent, {data: data})
+      .afterClosed().subscribe(
+      (response) => console.log("zalogować " + response)
+    )
   }
 }
