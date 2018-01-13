@@ -4,16 +4,31 @@
     <div>
       <mat-form-field>
         <input matInput="" formControlName="name" placeholder="Imię">
+        <mat-error *ngIf="nameInput.hasError('required')">
+          Imię jest <strong>wymagane</strong>
+        </mat-error>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field>
         <input matInput="" formControlName="surname" placeholder="Nazwisko">
+        <mat-error *ngIf="surnameInput.hasError('required')">
+          Nazwisko jest <strong>wymagane</strong>
+        </mat-error>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field>
-        <input matInput="" formControlName="email" placeholder="Email">
+        <input matInput="" formControlName="email" placeholder="Email" [errorStateMatcher]="errorMatcher">
+        <mat-error *ngIf="this.isExistEmail">
+          Użytkownik o takim adresie <strong>już istnieje</strong>
+        </mat-error>
+        <mat-error *ngIf="emailInput.hasError('required')">
+          Email jest <strong>wymagany</strong>
+        </mat-error>
+        <mat-error *ngIf="emailInput.hasError('email') && !emailInput.hasError('required')">
+          Email ma <strong>nieprawidłowy format</strong>
+        </mat-error>
       </mat-form-field>
     </div>
     <h3>Lista uprawnień</h3>
