@@ -1,5 +1,5 @@
 <mat-sidenav-container class="menu-container">
-  <mat-sidenav mode="side" class="menu-drawer">
+  <mat-sidenav mode="side" class="menu-drawer" *ngIf="this.showMenu">
     <div class="drawer-user-box">
 
     </div>
@@ -16,7 +16,7 @@
   </mat-sidenav>
   <mat-sidenav-content class="menu-content">
     <mat-toolbar class="menu-toolbar">
-      <button mat-button (click)="toggleMenu()">
+      <button mat-button (click)="toggleMenu()" *ngIf="this.showMenu">
         <mat-icon>{{mdIcons.menu}}</mat-icon>
       </button>
       <span class="center">{{title}}</span>

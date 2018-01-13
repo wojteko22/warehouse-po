@@ -12,6 +12,7 @@ export class MenuComponent {
   mdIcons = MdIconsDefinitions;
   @Input() title: string;
   @Input() menuOptions: MenuElements[];
+  @Input() showMenu: boolean = true;
   @ViewChild(MatSidenav) drawer: MatSidenav;
 
   toggleMenu() {

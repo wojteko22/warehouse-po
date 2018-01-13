@@ -16,18 +16,6 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/form
 export class UserConfigurationComponent {
   mdIcons = MdIconsDefinitions;
   title: string = "Konfiguracja konta";
-  menuOpions: MenuElements[] = [
-    {
-      icon: this.mdIcons.start_page,
-      optionName: "Strona główna",
-      routerLink: ""
-    },
-    {
-      icon: this.mdIcons.add_user,
-      optionName: "Dodaj użytkownika",
-      routerLink: "/user"
-    }
-  ];
   userId;
   configurationForm: FormGroup;
   isValid = false;
