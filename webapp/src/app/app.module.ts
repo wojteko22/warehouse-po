@@ -6,11 +6,13 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {CoreModule} from "./core-module/core.module";
 import {SharedModule} from "./shared-module/shared.module";
+import {StartComponent} from "./start-page/start.component";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StartComponent
   ],
   imports: [
     BrowserModule,
