@@ -46,9 +46,17 @@
     </div>
     <div>
       <mat-form-field>
-        <input matInput="" formControlName="password" placeholder="Hasło">
+        <input matInput="" formControlName="password" placeholder="Hasło" type="password">
         <mat-error *ngIf="this.password.hasError('required')">
           Hasło jest <strong>wymagane</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput="" formControlName="repeatPassword" placeholder="Powtórz hasło" type="password">
+        <mat-error *ngIf="this.repeatPassword.hasError('wrongPassword')">
+          Powtórzone hasło się <strong>nie zgadza</strong>
         </mat-error>
       </mat-form-field>
     </div>

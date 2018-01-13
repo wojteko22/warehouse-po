@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {UserService} from "../user.service";
 import {ActivatedRoute} from "@angular/router";
 import {MdIconsDefinitions} from "../../md-icons-definitions";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component(
   {
@@ -33,7 +33,7 @@ export class UserConfigurationComponent {
   isValid = false;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
-    this.route.params.subscribe( params => this.userId = params['id']);
+    this.route.params.subscribe(params => this.userId = params['id']);
     this.initForm()
   }
 
@@ -41,6 +41,7 @@ export class UserConfigurationComponent {
     this.configurationForm = this.formBuilder.group({
         'pesel': [null, Validators.required],
         'password': [null, Validators.required],
+        'repeatPassword': [null],
         'address': this.formBuilder.group({
           'town': [null, Validators.required],
           'postalCode': [null, Validators.required],
@@ -50,7 +51,8 @@ export class UserConfigurationComponent {
       }
     );
 
-    this.configurationForm.valueChanges.subscribe(() => this.isValid = this.configurationForm.valid)
+    this.configurationForm.valueChanges.subscribe(() => this.isValid = this.configurationForm.valid);
+    this.repeatPassword.setValidators([this.repeatPasswordValidator, Validators.required])
   }
 
   get pesel() {
@@ -59,6 +61,17 @@ export class UserConfigurationComponent {
 
   get password() {
     return this.configurationForm.get('password')
+  }
+
+  get repeatPassword() {
+    return this.configurationForm.get('repeatPassword')
+  }
+
+  get repeatPasswordValidator() {
+    return (control: AbstractControl) => {
+      const isOk = this.password.value === control.value;
+      return isOk ? null : {wrongPassword: {valid: false}};
+    };
   }
 
   get town() {
