@@ -5,6 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {MaterialDesignModule} from "./material-design-module/material-design.module";
 import {MenuComponent} from "./menu/menu-content.component";
 import {RouterModule} from "@angular/router";
+import {DialogComponent} from "./dialog/dialog.component";
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import {RouterModule} from "@angular/router";
     RouterModule
   ],
   declarations: [
-    MenuComponent
+    MenuComponent,
+    DialogComponent
   ],
   exports: [
     CommonModule,
@@ -25,9 +27,11 @@ import {RouterModule} from "@angular/router";
     HttpClientModule,
     MaterialDesignModule,
     MenuComponent,
-    RouterModule
+    RouterModule,
+    DialogComponent
   ],
   entryComponents: [
+    DialogComponent
   ],
   providers: [
   ]
