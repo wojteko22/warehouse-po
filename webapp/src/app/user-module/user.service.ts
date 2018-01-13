@@ -20,4 +20,8 @@ export class UserService {
   getIsExistEmail(userMail: string): Promise<boolean> {
     return this.http.get<boolean>(this.baseUrl + "/exist/" + userMail).toPromise()
   }
+
+  postUserConfigurationData(userConfigurationDto: UserConfigurationDto) {
+    return this.http.post(this.baseUrl + "/configure", userConfigurationDto).toPromise();
+  }
 }

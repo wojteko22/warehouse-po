@@ -89,4 +89,14 @@ export class UserConfigurationComponent {
   get number() {
     return this.configurationForm.get('address').get('number')
   }
+
+  get configurationDto(): UserConfigurationDto {
+    const configDto = {...this.configurationForm.value, id: this.userId};
+    delete configDto['repeatPassword'];
+    return configDto
+  }
+
+  sendConfigurationData() {
+    this.userService.postUserConfigurationData(this.configurationDto)
+  }
 }

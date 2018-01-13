@@ -47,6 +47,7 @@ dependencies {
 	compile("org.jetbrains.kotlin:kotlin-reflect:$KOTLIN_VER")
 	compile("org.springframework.boot:spring-boot-starter-mail")
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
+	compile ("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0")
 	optional "org.springframework.boot:spring-boot-configuration-processor"
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	runtime project(':core')
