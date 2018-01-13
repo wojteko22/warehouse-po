@@ -73,7 +73,8 @@ export class UserRegisterComponent implements OnInit {
     const userDto = this.userData;
     this.isExistEmail = await this.userService.getIsExistEmail(userDto.email);
     if (!this.isExistEmail) {
-      this.userService.postUserData(userDto)
+      this.userService.postUserData(userDto);
+      this.userDataForm.reset()
     }
   }
 

@@ -39,12 +39,12 @@ export class UserConfigurationComponent {
 
   private initForm() {
     this.configurationForm = this.formBuilder.group({
-        'pesel': [null, Validators.required],
-        'password': [null, Validators.required],
+        'pesel': [null, [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern('^[1-9]+$')]],
+        'password': [null, [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
         'repeatPassword': [null],
         'address': this.formBuilder.group({
           'town': [null, Validators.required],
-          'postalCode': [null, Validators.required],
+          'postalCode': [null, [Validators.required, Validators.pattern('^[1-9][1-9]-[1-9][1-9][1-9]$')]],
           'street': [null, Validators.required],
           'number': [null, Validators.required]
         })
@@ -97,6 +97,7 @@ export class UserConfigurationComponent {
   }
 
   sendConfigurationData() {
-    this.userService.postUserConfigurationData(this.configurationDto)
+    this.userService.postUserConfigurationData(this.configurationDto);
+    this.configurationForm.reset()
   }
 }

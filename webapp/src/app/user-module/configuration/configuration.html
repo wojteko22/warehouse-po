@@ -3,9 +3,15 @@
   <form [formGroup]="configurationForm">
     <div>
       <mat-form-field>
-        <input matInput="" formControlName="pesel" placeholder="Pesel">
+        <input matInput="" formControlName="pesel" placeholder="Pesel"  >
         <mat-error *ngIf="this.pesel.hasError('required')">
           Pesel jest <strong>wymagany</strong>
+        </mat-error>
+        <mat-error *ngIf="!(this.pesel.hasError('required') || this.pesel.hasError('pattern')) && (this.pesel.hasError('minlength') || this.pesel.hasError('maxlength'))">
+          Pesel ma <strong>złą ilość cyfr</strong>
+        </mat-error>
+        <mat-error *ngIf="this.pesel.hasError('pattern')">
+          Pesel ma mieć <strong>tylko cyfry</strong>
         </mat-error>
       </mat-form-field>
     </div>
@@ -41,6 +47,9 @@
           <mat-error *ngIf="this.postalCode.hasError('required')">
             Kod pocztowy jest <strong>wymagany</strong>
           </mat-error>
+          <mat-error *ngIf="this.postalCode.hasError('pattern')">
+            Kod pocztowy <strong>musi mieć format</strong> xx-xxx
+          </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -49,6 +58,9 @@
         <input matInput="" formControlName="password" placeholder="Hasło" type="password">
         <mat-error *ngIf="this.password.hasError('required')">
           Hasło jest <strong>wymagane</strong>
+        </mat-error>
+        <mat-error *ngIf="!this.password.hasError('required') && (this.password.hasError('minlength') || this.password.hasError('maxlength'))">
+          Hasło ma <strong>mieć od 5 do 15 znaków</strong>
         </mat-error>
       </mat-form-field>
     </div>
