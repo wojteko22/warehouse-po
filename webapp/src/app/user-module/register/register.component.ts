@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {UserService} from "../user.service";
 import {MdIconsDefinitions} from "../../md-icons-definitions";
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ErrorStateMatcher, MatSelectionList} from "@angular/material";
 
 @Component({
@@ -35,38 +35,29 @@ export class UserRegisterComponent implements OnInit {
       return !!(control && (control.invalid || this.isExistEmail) && control.touched);
     }
   };
+  permissions = [];
 
   constructor(private userService: UserService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
-    this.initForm(this.formBuilder.array([]));
-    this.allUserPermissions().then(
-      result => this.initForm(result)
-    );
-    this.userDataForm.updateValueAndValidity();
+    this.initForm();
+    this.allUserPermissions()
   }
 
-  private initForm(permissions: FormArray) {
+  private initForm() {
     this.userDataForm = this.formBuilder.group({
         'name': [null, Validators.required],
         'surname': [null, Validators.required],
         'email': [null, [Validators.email, Validators.required]],
-        'permissions': permissions
       }
     );
 
     this.userDataForm.valueChanges.subscribe(() => this.isValid = this.userDataForm.valid)
   }
 
-  private async allUserPermissions(): Promise<FormArray> {
-    let result = await this.userService.getUserPermissions();
-    const permissions = result.map(permission => this.formBuilder.control(permission));
-    return this.formBuilder.array(permissions);
-  }
-
-  private get permissions(): FormArray {
-    return this.userDataForm.get('permissions') as FormArray
+  private async allUserPermissions() {
+    this.permissions = await this.userService.getUserPermissions();
   }
 
   async sendUserData() {
@@ -74,7 +65,8 @@ export class UserRegisterComponent implements OnInit {
     this.isExistEmail = await this.userService.getIsExistEmail(userDto.email);
     if (!this.isExistEmail) {
       this.userService.postUserData(userDto);
-      this.userDataForm.reset()
+      this.userDataForm.reset();
+      this.userPermissions.deselectAll()
     }
   }
 

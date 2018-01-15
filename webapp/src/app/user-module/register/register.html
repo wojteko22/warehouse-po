@@ -31,15 +31,15 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <h3>Lista uprawnień</h3>
-    <div formArrayName="permissions" class="permissions-list">
-        <mat-selection-list>
-          <mat-list-option *ngFor="let permission of permissions.controls" value="{{permission.value}}">
-            {{permission.value}}
-          </mat-list-option>
-        </mat-selection-list>
-    </div>
   </form>
+  <h3>Lista uprawnień</h3>
+  <div class="permissions-list">
+    <mat-selection-list>
+      <mat-list-option *ngFor="let permission of permissions" value="{{permission}}">
+        {{permission}}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
 
   <div class="center">
     <button mat-raised-button color="primary" disabled="{{!isValid}}" (click)="sendUserData()">Dodaj użytkownika</button>

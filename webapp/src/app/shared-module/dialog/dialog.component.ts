@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA} from "@angular/material";
 import {DialogData} from "./dialog-data";
 
 @Component({
-  selector: 'dialog',
+  selector: 'dialog-content',
   templateUrl: './dialog.html',
   styleUrls: ['./dialog.css']
 })
