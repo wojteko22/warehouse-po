@@ -3,6 +3,7 @@ import {DeliveryOrderService} from "../delivery-order.service";
 import {MdIconsDefinitions} from "../../md-icons-definitions";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {DeliveryOrderDto} from "../../model/dto/delivery-order-dto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'delivery-orders',
@@ -28,7 +29,7 @@ export class DeliveryOrdersComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private deliveryOrdersService: DeliveryOrderService) {
+  constructor(private deliveryOrdersService: DeliveryOrderService, private router: Router) {
   }
 
   ngAfterViewInit() {
@@ -43,7 +44,7 @@ export class DeliveryOrdersComponent {
   }
 
   selectRow(row: DeliveryOrderDto) {
-    console.log(row)
+    this.router.navigateByUrl('/deliveryOrder/details/' + row.orderNumber)
   }
 
   hoverRow(id: number) {
