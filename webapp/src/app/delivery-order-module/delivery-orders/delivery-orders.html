@@ -1,3 +1,28 @@
 <menu-content [title]='this.title' [menuOptions]='this.menuOpions'>
+  <div class="example-container mat-elevation-z8">
 
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="orderNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nr zamówienia</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.orderNumber}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="provider">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa dostawcy</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.provider}}%</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="predictedDeliveryDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Szacowana data dostawy</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.predictedDeliveryDate}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="this.selectRow(row)" (mouseover)="this.hoverRow(row.orderNumber)"
+               (mouseout)="this.hoverRow(null)" [ngClass]="{'hoveredRow':this.isHovered(row)}"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
 </menu-content>

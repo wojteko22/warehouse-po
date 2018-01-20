@@ -1,11 +1,13 @@
-
-import {Component} from "@angular/core";
+import {Component, ViewChild} from "@angular/core";
 import {DeliveryOrderService} from "../delivery-order.service";
 import {MdIconsDefinitions} from "../../md-icons-definitions";
+import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {DeliveryOrderDto} from "../../model/dto/delivery-order-dto";
 
 @Component({
   selector: 'delivery-orders',
   templateUrl: './delivery-orders.html',
+  styleUrls: ['./delivery-orders.css'],
   providers: [DeliveryOrderService]
 })
 
@@ -19,8 +21,37 @@ export class DeliveryOrdersComponent {
       routerLink: ""
     }
   ];
+  displayedColumns = ['orderNumber', 'provider', 'predictedDeliveryDate'];
+  dataSource: MatTableDataSource<DeliveryOrderDto>;
+  hoveredRow = null;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private deliveryOrdersService: DeliveryOrderService) {
+  }
+
+  ngAfterViewInit() {
+    this.initDataSource()
+  }
+
+  private async initDataSource() {
+    const orders = await this.deliveryOrdersService.getAllDeliveryOrders();
+    this.dataSource = new MatTableDataSource(orders);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  selectRow(row: DeliveryOrderDto) {
+    console.log(row)
+  }
+
+  hoverRow(id: number) {
+    this.hoveredRow = id;
+  }
+
+  isHovered(row: DeliveryOrderDto) {
+    return this.hoveredRow != null && this.hoveredRow == row.orderNumber
   }
 
 }

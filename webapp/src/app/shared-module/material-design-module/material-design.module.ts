@@ -22,6 +22,9 @@ import {
   MatAutocompleteModule,
   MatSidenavModule,
   MatIconModule,
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorModule,
 } from '@angular/material';
 
 @NgModule({
@@ -47,7 +50,10 @@ import {
     MatTabsModule,
     MatAutocompleteModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
   exports: [
     CommonModule,
@@ -71,7 +77,10 @@ import {
     MatTabsModule,
     MatAutocompleteModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
   ]
 })
 
