@@ -1,13 +1,14 @@
-import {Component, ViewChild} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {MdIconsDefinitions} from "../../../md-icons-definitions";
 import {DifferenceReportService} from "../difference-report.service";
 import {DifferenceReportPositionService} from "../difference-report-position.service";
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {DeliveryOrderPositionDto} from "../../../model/dto/delivery-order-position-dto";
 import {ActivatedRoute} from "@angular/router";
 import {DeliveryOrderDetailsDto} from "../../../model/dto/delivery-order-details-dto";
 import {DeliveryOrderService} from "../../delivery-order.service";
 import {SelectionModel} from "@angular/cdk/collections";
+import {NewCommodityComponent} from "../../new-commodity/new-commodity.component";
 
 @Component({
   selector: 'difference-report',
@@ -16,7 +17,7 @@ import {SelectionModel} from "@angular/cdk/collections";
   providers: [DeliveryOrderService, DifferenceReportService, DifferenceReportPositionService]
 })
 
-export class DifferenceReportComponent {
+export class DifferenceReportComponent implements OnInit {
   mdIcons = MdIconsDefinitions;
   title: string = "Protokół różnic";
   menuOpions: MenuElements[] = [
@@ -36,7 +37,7 @@ export class DifferenceReportComponent {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private deliveryOrdersService: DeliveryOrderService, private differenceReportService: DifferenceReportService,
-              private differenceReportPositionService: DifferenceReportPositionService, private route: ActivatedRoute) {
+              private differenceReportPositionService: DifferenceReportPositionService, private route: ActivatedRoute, private dialog: MatDialog) {
     this.route.params.subscribe(params => {
       this.orderNumber = params['id'];
     });
@@ -66,8 +67,20 @@ export class DifferenceReportComponent {
     console.log("createDifferenceReport")
   }
 
-  addNewCommodity() {
-
+  async openAddNewCommodityDialog() {
+    // const data = await this.differenceReportService.getAvailableCommodities(this.orderNumber);
+    const data = [{
+      commodityCode: "fak",
+      commodityName: "fjakdf",
+      measure: "fkajgfkag",
+      producer: "kfajdktgak"
+    }];
+    this.dialog.open(NewCommodityComponent, {data: data})
+      .updateSize('auto', '600px')
+      .afterClosed()
+      .subscribe(
+        result => console.log(result)
+      )
   }
 
 }

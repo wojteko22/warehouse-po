@@ -1,0 +1,8 @@
+p {
+  margin: 16px 16px 0;
+  font-family: Arial, serif;
+}
+
+.hoveredRow {
+  background-color: rgba(172, 172, 172, 0.56);
+}

@@ -1,0 +1,41 @@
+  <h1 mat-dialog-title>Wybierz towar nieuwzględniony w zamówieniu</h1>
+  <i class="material-icons" (click)="this.closeDialog()">{{this.mdIcons.close}}</i>
+<div mat-dialog-content>
+  <div class="example-container mat-elevation-z8">
+
+    <div>
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="code">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Kod towaru</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.commodityCode}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa towaru</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.commodityName}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="measure">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Jednostka miary</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.measure}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="producer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Producent</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.producer}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="this.selectRow(row)" (mouseover)="this.hoverRow(row.commodityCode)"
+               (mouseout)="this.hoverRow(null)" [ngClass]="{'hoveredRow':this.isHovered(row)}"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>
