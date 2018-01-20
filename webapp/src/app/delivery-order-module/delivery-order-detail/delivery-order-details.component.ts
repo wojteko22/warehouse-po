@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {MdIconsDefinitions} from "../../md-icons-definitions";
 import {DeliveryOrderService} from "../delivery-order.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {DeliveryOrderPositionDto} from "../../model/dto/delivery-order-position-dto";
 import {DeliveryOrderDetailsDto} from "../../model/dto/delivery-order-details-dto";
@@ -13,7 +13,7 @@ import {DeliveryOrderDetailsDto} from "../../model/dto/delivery-order-details-dt
   providers: [DeliveryOrderService]
 })
 
-export class DeliveryOrderDetailsComponent implements OnInit{
+export class DeliveryOrderDetailsComponent implements OnInit {
 
   mdIcons = MdIconsDefinitions;
   title: string = "Zamówienie";
@@ -33,7 +33,7 @@ export class DeliveryOrderDetailsComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private deliveryOrdersService: DeliveryOrderService, private route: ActivatedRoute) {
+  constructor(private deliveryOrdersService: DeliveryOrderService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => {
       this.orderNumber = params['id'];
     });
@@ -52,8 +52,8 @@ export class DeliveryOrderDetailsComponent implements OnInit{
     this.dataSource.sort = this.sort;
   }
 
-  makeDifferenceReport(){
-    console.log("make differnecer report")
+  goToDifferenceReportCreator() {
+    this.router.navigateByUrl('/deliveryOrder/differenceReport/' + this.orderNumber)
   }
 
 }
