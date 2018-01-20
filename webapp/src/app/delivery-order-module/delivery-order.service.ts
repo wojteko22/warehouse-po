@@ -11,40 +11,11 @@ export class DeliveryOrderService {
   constructor(private http: HttpClient) {
   }
 
-  getAllDeliveryOrders(): DeliveryOrderDto[] {
-    // return this.http.get<DeliveryOrderDto[]>(this.baseUrl + '/delivery-orders').toPromise()
-    return [
-      {orderNumber: "1", provider: "kfal", predictedDeliveryDate: "fdklfa"},
-      {orderNumber: "2", provider: "kfal", predictedDeliveryDate: "fdklfa"},
-      {orderNumber: "3", provider: "kfal", predictedDeliveryDate: "fdklfa"},
-      {orderNumber: "4", provider: "kfdfa", predictedDeliveryDate: "fdklfa"},
-    ]
+  getAllDeliveryOrders(): Promise<DeliveryOrderDto[]> {
+    return this.http.get<DeliveryOrderDto[]>(this.baseUrl + '/delivery-orders').toPromise()
   }
 
-  getDeliveryOrderDetail(orderNumber: string): DeliveryOrderDetailsDto {
-    return {
-      orderNumber: orderNumber,
-      provider: "maszyno hurt",
-      positions: [
-        {
-          commodity: {
-            commodityCode: "nbmd dak",
-            commodityName: "pasza dla kur",
-            measure: "kg",
-            producer: "brojlery gurą"
-          },
-          quantity: "15"
-        },
-        {
-          commodity: {
-            commodityCode: "bakaraka",
-            commodityName: "mlekosan",
-            measure: "sztuki",
-            producer: "sano"
-          },
-          quantity: "5"
-        }
-      ]
-    }
+  getDeliveryOrderDetail(orderNumber: string): Promise<DeliveryOrderDetailsDto> {
+    return this.http.get<DeliveryOrderDetailsDto>(this.baseUrl + "/delivery-orders/" + orderNumber).toPromise()
   }
 }

@@ -45,7 +45,7 @@ export class DeliveryOrderDetailsComponent implements OnInit{
   }
 
   private async initDataSource() {
-    this.orderDetails = this.deliveryOrdersService.getDeliveryOrderDetail(this.orderNumber);
+    this.orderDetails = await this.deliveryOrdersService.getDeliveryOrderDetail(this.orderNumber);
     this.provider = this.orderDetails.provider;
     this.dataSource = new MatTableDataSource(this.orderDetails.positions);
     this.dataSource.paginator = this.paginator;
