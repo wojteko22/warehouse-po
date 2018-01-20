@@ -2,17 +2,17 @@ package com.rusoko.core.db.delivery
 
 import com.rusoko.api.dto.DifferenceReportPositionDto
 import com.rusoko.core.connect
+import com.rusoko.core.db.InitializableTable
 import com.rusoko.core.new
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
-import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.SchemaUtils
 import java.math.BigDecimal
 
 fun main(args: Array<String>) {
     connect {
-        SchemaUtils.new(DifferenceReportPositions)
+        DifferenceReportPositions.init()
     }
 }
 
@@ -31,8 +31,12 @@ class DifferenceReportPosition(id: EntityID<Int>) : IntEntity(id) {
     fun toDto() = DifferenceReportPositionDto(id.value, commodity.toDto(), orderedQuantity, deliveredQuantity)
 }
 
-object DifferenceReportPositions : IntIdTable("difference_report_positions") {
+object DifferenceReportPositions : InitializableTable("difference_report_positions") {
     val commodity = reference("commodity", Commodities)
     val deliveredQuantity = decimal("delivered_quantity", 13, 3).default(BigDecimal(0))
     val differenceReport = reference("difference_report", DifferenceReports)
+
+    override fun init() {
+        SchemaUtils.new(this)
+    }
 }

@@ -2,16 +2,16 @@ package com.rusoko.core.db.delivery
 
 import com.rusoko.api.dto.DifferenceReportDto
 import com.rusoko.core.connect
+import com.rusoko.core.db.InitializableTable
 import com.rusoko.core.new
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
-import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.SchemaUtils
 
-fun main(args: Array<String>) { // Needs Providers
+fun main(args: Array<String>) {
     connect {
-        SchemaUtils.new(DifferenceReports)
+        DifferenceReports.init()
     }
 }
 
@@ -27,7 +27,11 @@ class DifferenceReport(id: EntityID<Int>) : IntEntity(id) {
     fun toDto() = DifferenceReportDto(deliveryOrder.orderNumber, positions.map { it.toDto() })
 }
 
-object DifferenceReports : IntIdTable("difference_reports") {
+object DifferenceReports : InitializableTable("difference_reports") {
     val deliveryOrder = reference("delivery_order", DeliveryOrders)
     val ready = bool("ready").default(false)
+
+    override fun init() {
+        SchemaUtils.new(this)
+    }
 }

@@ -1,5 +1,6 @@
 package com.rusoko
 
+import com.rusoko.api.DataInitializer
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -24,5 +25,6 @@ class ControllerApplication {
 }
 
 fun main(args: Array<String>) {
-    SpringApplication.run(ControllerApplication::class.java, *args)
+    val context = SpringApplication.run(ControllerApplication::class.java, *args)
+    context.getBean(DataInitializer::class.java).init()
 }

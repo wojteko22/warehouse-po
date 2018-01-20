@@ -2,28 +2,19 @@ package com.rusoko.core.db.delivery
 
 import com.rusoko.api.dto.CommodityDto
 import com.rusoko.core.connect
+import com.rusoko.core.db.InitializableTable
+import com.rusoko.core.new
 import com.rusoko.core.nextNumber
 import com.rusoko.core.random
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
-import org.jetbrains.exposed.dao.IntIdTable
-import org.jetbrains.exposed.sql.deleteAll
+import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.insert
 
-fun main(args: Array<String>) { // Needs Providers
+fun main(args: Array<String>) {
     connect {
-        Commodities.deleteAll()
-
-        arrayOf("Bestermine Activ", "Bestermine Plus", "Bestermine Ultra", "Kaliber Musli", "Optimilk", "Protimilk",
-                "SuperMusli").forEach { aName ->
-            Commodities.insert {
-                it[code] = "T-" + random.nextNumber(4)
-                it[name] = aName
-                it[measure] = Measure.random().id
-                it[producer] = Producer.random().id
-            }
-        }
+        Commodities.init()
     }
 }
 
@@ -38,9 +29,23 @@ class Commodity(id: EntityID<Int>) : IntEntity(id) {
     fun toDto() = CommodityDto(code, name, measure.name, producer.name)
 }
 
-object Commodities : IntIdTable() {
+object Commodities : InitializableTable() {
     val code = varchar("code", 255).uniqueIndex()
     val name = varchar("name", 255)
     val measure = reference("measure", Measures)
     val producer = reference("producer", Producers)
+
+    override fun init() {
+        SchemaUtils.new(this)
+
+        arrayOf("Bestermine Activ", "Bestermine Plus", "Bestermine Ultra", "Kaliber Musli", "Optimilk", "Protimilk",
+                "SuperMusli").forEach { aName ->
+            insert {
+                it[code] = "T-" + random.nextNumber(4)
+                it[name] = aName
+                it[measure] = Measure.random().id
+                it[producer] = Producer.random().id
+            }
+        }
+    }
 }
