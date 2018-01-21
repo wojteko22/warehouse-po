@@ -30,9 +30,6 @@ export class DeliveryOrdersComponent {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private deliveryOrdersService: DeliveryOrderService, private router: Router) {
-  }
-
-  ngAfterViewInit() {
     this.initDataSource()
   }
 
@@ -44,7 +41,7 @@ export class DeliveryOrdersComponent {
   }
 
   selectRow(row: DeliveryOrderDto) {
-    this.router.navigateByUrl('/deliveryOrder/details/' + row.orderNumber)
+    this.router.navigateByUrl('/deliveryOrder/details/' + row.id)
   }
 
   hoverRow(id: number) {

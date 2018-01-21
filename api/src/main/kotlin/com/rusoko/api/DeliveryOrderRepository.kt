@@ -6,5 +6,5 @@ import com.rusoko.api.dto.DeliveryOrderDto
 interface DeliveryOrderRepository {
     val all: Collection<DeliveryOrderDto>
 
-    operator fun get(orderNumber: String): DeliveryOrderDetailDto
+    operator fun get(orderId: Int): DeliveryOrderDetailDto
 }

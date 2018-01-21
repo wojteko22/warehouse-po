@@ -15,7 +15,7 @@ export class DeliveryOrderService {
     return this.http.get<DeliveryOrderDto[]>(this.baseUrl).toPromise()
   }
 
-  getDeliveryOrderDetail(orderNumber: string): Promise<DeliveryOrderDetailsDto> {
-    return this.http.get<DeliveryOrderDetailsDto>(this.baseUrl + "/" + orderNumber).toPromise()
+  getDeliveryOrderDetail(orderId: string): Promise<DeliveryOrderDetailsDto> {
+    return this.http.get<DeliveryOrderDetailsDto>(this.baseUrl + "/" + orderId).toPromise()
   }
 }

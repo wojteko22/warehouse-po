@@ -29,7 +29,7 @@ class DeliveryOrder(id: EntityID<Int>) : IntEntity(id) {
 
     val positions by DeliveryOrderPosition referrersOn DeliveryOrderPositions.deliveryOrder
 
-    fun toDto() = DeliveryOrderDto(orderNumber, predictedDeliveryDate.toLocalDate().toString(), provider.name)
+    fun toDto() = DeliveryOrderDto(id.toString(), orderNumber, predictedDeliveryDate.toLocalDate().toString(), provider.name)
     fun toDetailDto() = DeliveryOrderDetailDto(orderNumber, provider.name, positions.map { it.toDto() })
 }
 

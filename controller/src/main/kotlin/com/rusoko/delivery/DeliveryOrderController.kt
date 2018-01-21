@@ -13,6 +13,6 @@ class DeliveryOrderController(private val repository: DeliveryOrderRepository) {
     @GetMapping
     fun getAll() = repository.all
 
-    @GetMapping("/{orderNumber}")
-    fun getById(@PathVariable orderNumber: String) = repository[orderNumber]
+    @GetMapping("/{orderId}")
+    fun getById(@PathVariable orderId: Int) = repository[orderId]
 }

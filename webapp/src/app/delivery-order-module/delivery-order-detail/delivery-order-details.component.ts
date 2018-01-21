@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ViewChild} from "@angular/core";
 import {MdIconsDefinitions} from "../../md-icons-definitions";
 import {DeliveryOrderService} from "../delivery-order.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -13,7 +13,7 @@ import {DeliveryOrderDetailsDto} from "../../model/dto/delivery-order-details-dt
   providers: [DeliveryOrderService]
 })
 
-export class DeliveryOrderDetailsComponent implements OnInit {
+export class DeliveryOrderDetailsComponent {
 
   mdIcons = MdIconsDefinitions;
   title: string = "Zamówienie";
@@ -26,7 +26,7 @@ export class DeliveryOrderDetailsComponent implements OnInit {
   ];
   displayedColumns = ['code', 'name', 'quantity', 'measure'];
   dataSource: MatTableDataSource<DeliveryOrderPositionDto>;
-  orderNumber: string;
+  orderId: string;
   provider: string;
   orderDetails: DeliveryOrderDetailsDto;
 
@@ -35,25 +35,22 @@ export class DeliveryOrderDetailsComponent implements OnInit {
 
   constructor(private deliveryOrdersService: DeliveryOrderService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => {
-      this.orderNumber = params['id'];
+      this.orderId = params['id'];
     });
     this.initDataSource()
   }
 
-  ngOnInit(): void {
-    this.title = this.title + " " + this.orderNumber;
-  }
-
   private async initDataSource() {
-    this.orderDetails = await this.deliveryOrdersService.getDeliveryOrderDetail(this.orderNumber);
+    this.orderDetails = await this.deliveryOrdersService.getDeliveryOrderDetail(this.orderId);
     this.provider = this.orderDetails.provider;
+    this.title = this.title + " " + this.orderDetails.orderNumber;
     this.dataSource = new MatTableDataSource(this.orderDetails.positions);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
   goToDifferenceReportCreator() {
-    this.router.navigateByUrl('/deliveryOrder/differenceReport/' + this.orderNumber)
+    this.router.navigateByUrl('/deliveryOrder/differenceReport/' + this.orderId)
   }
 
 }

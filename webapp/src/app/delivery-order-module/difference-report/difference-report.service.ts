@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {CommodityDto} from "../../model/dto/commodity-dto";
+import {DifferenceReportDto} from "../../model/dto/difference-report-dto";
 
 @Injectable()
 export class DifferenceReportService {
@@ -12,6 +13,15 @@ export class DifferenceReportService {
 
   getAvailableCommodities(orderNumber: String): Promise<CommodityDto[]> {
     return this.http.get<CommodityDto[]>(this.baseUrl + '/' + orderNumber + '/available-commodities').toPromise()
+  }
+
+  createDefaultReport(orderId: string): Promise<string> {
+    const params = new HttpParams().set('deliveryOrderId', orderId);
+    return this.http.post<string>(this.baseUrl, params).toPromise()
+  }
+
+  getReport(id: string): Promise<DifferenceReportDto> {
+    return this.http.get<DifferenceReportDto>(this.baseUrl + '/' + id).toPromise()
   }
 
 

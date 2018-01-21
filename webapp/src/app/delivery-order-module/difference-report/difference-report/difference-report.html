@@ -9,22 +9,22 @@
 
       <ng-container matColumnDef="code">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Kod towaru</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.orderPosition.commodity.commodityCode}}</mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.commodity.commodityCode}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa towaru</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.orderPosition.commodity.commodityName}}</mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.commodity.commodityName}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="quantity">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Ilość</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.orderPosition.quantity}}</mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.orderedQuantity}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="measure">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Jednostka miary</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.orderPosition.commodity.measure}}</mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.commodity.measure}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="deliveredQuantity">
