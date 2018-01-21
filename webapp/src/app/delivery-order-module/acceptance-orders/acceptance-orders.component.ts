@@ -1,50 +1,48 @@
 import {Component, ViewChild} from "@angular/core";
-import {DeliveryOrderService} from "../delivery-order.service";
 import {MdIconsDefinitions} from "../../md-icons-definitions";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {DeliveryOrderDto} from "../../model/dto/delivery-order-dto";
 import {Router} from "@angular/router";
 import {deliveryOrderMenu} from "../delivery-order-menu";
+import {AcceptanceOrderDto} from "../../model/dto/acceptance-order-dto";
+import {AcceptanceOrderService} from "./acceptance-order.service";
 
 @Component({
-  selector: 'delivery-orders',
-  templateUrl: './delivery-orders.html',
-  styleUrls: ['./delivery-orders.css'],
-  providers: [DeliveryOrderService]
+  selector: 'acceptance-orders',
+  templateUrl: './acceptance-orders.html',
+  providers: [AcceptanceOrderService]
 })
 
-export class DeliveryOrdersComponent {
+export class AcceptanceOrdersComponent {
   mdIcons = MdIconsDefinitions;
-  title: string = "Zamówienia dostaw";
+  title: string = "Zlecenia przyjęcia";
   menuOpions: MenuElements[] = deliveryOrderMenu;
-  displayedColumns = ['orderNumber', 'provider', 'predictedDeliveryDate'];
-  dataSource: MatTableDataSource<DeliveryOrderDto>;
+  displayedColumns = ['orderNumber', 'provider'];
+  dataSource: MatTableDataSource<AcceptanceOrderDto>;
   hoveredRow = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private deliveryOrdersService: DeliveryOrderService, private router: Router) {
+  constructor(private acceptanceOrdersService: AcceptanceOrderService, private router: Router) {
     this.initDataSource()
   }
 
   private async initDataSource() {
-    const orders = await this.deliveryOrdersService.getAllDeliveryOrders();
+    const orders = await this.acceptanceOrdersService.getUnhandled();
     this.dataSource = new MatTableDataSource(orders);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  selectRow(row: DeliveryOrderDto) {
-    this.router.navigateByUrl('/deliveryOrder/details/' + row.id)
+  selectRow(row: AcceptanceOrderDto) {
+    this.router.navigateByUrl('/deliveryOrder/acceptanceOrders/' + row.id)
   }
 
   hoverRow(id: number) {
     this.hoveredRow = id;
   }
 
-  isHovered(row: DeliveryOrderDto) {
+  isHovered(row: AcceptanceOrderDto) {
     return this.hoveredRow != null && this.hoveredRow == row.orderNumber
   }
-
 }

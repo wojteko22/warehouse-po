@@ -25,7 +25,7 @@ class DeliveryOrder(id: EntityID<Int>) : IntEntity(id) {
 
     var orderNumber by DeliveryOrders.orderNumber
     private var predictedDeliveryDate by DeliveryOrders.predictedDeliveryDate
-    private var provider by Provider referencedOn DeliveryOrders.provider
+    var provider by Provider referencedOn DeliveryOrders.provider
 
     val positions by DeliveryOrderPosition referrersOn DeliveryOrderPositions.deliveryOrder
     private val differenceReports by DifferenceReport referrersOn DifferenceReports.deliveryOrder
