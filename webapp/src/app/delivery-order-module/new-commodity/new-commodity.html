@@ -1,5 +1,5 @@
-  <h1 mat-dialog-title>Wybierz towar nieuwzględniony w zamówieniu</h1>
-  <i class="material-icons" (click)="this.closeDialog()">{{this.mdIcons.close}}</i>
+<i class="material-icons" (click)="this.closeDialog()">{{this.mdIcons.close}}</i>
+<h1 mat-dialog-title>Wybierz towar nieuwzględniony w zamówieniu</h1>
 <div mat-dialog-content>
   <div class="example-container mat-elevation-z8">
 
@@ -32,7 +32,8 @@
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="this.selectRow(row)" (mouseover)="this.hoverRow(row.commodityCode)"
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="this.selectRow(row)"
+               (mouseover)="this.hoverRow(row.commodityCode)"
                (mouseout)="this.hoverRow(null)" [ngClass]="{'hoveredRow':this.isHovered(row)}"></mat-row>
     </mat-table>
 

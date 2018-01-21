@@ -24,5 +24,8 @@ export class DifferenceReportService {
     return this.http.get<DifferenceReportDto>(this.baseUrl + '/' + id).toPromise()
   }
 
-
+  addCommodity(reportId: string, commodityId: number) {
+    const params = new HttpParams().set('commodityId', commodityId.toString());
+    return this.http.post(this.baseUrl + '/' + reportId + '/positions', params).toPromise();
+  }
 }

@@ -19,7 +19,8 @@ import {DifferenceReportPositionDto} from "../../../model/dto/difference-report-
 
 export class DifferenceReportComponent {
   mdIcons = MdIconsDefinitions;
-  title: string = "Protokół różnic";
+  initialTitle: string = "Protokół różnic";
+  title: string = this.initialTitle;
   menuOpions: MenuElements[] = [
     {
       icon: this.mdIcons.start_page,
@@ -45,14 +46,21 @@ export class DifferenceReportComponent {
     });
   }
 
+  async openAddNewCommodityDialog() {
+    const data = await this.differenceReportService.getAvailableCommodities(this.reportId);
+    this.dialog.open(NewCommodityComponent, {data: data})
+      .afterClosed()
+      .subscribe(
+        commodity =>
+          this.differenceReportService.addCommodity(this.reportId, commodity.id).then(
+            () => this.getData()
+          )
+      )
+  }
+
   private async initDataSource() {
     this.reportId = await this.differenceReportService.createDefaultReport(this.orderId);
-    this.report = await this.differenceReportService.getReport(this.reportId);
-
-    this.dataSource = new MatTableDataSource(this.report.differenceReportPositions);
-    this.title = this.title + " " + this.report.deliveryOrderNumber;
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.getData();
   }
 
   getDifference(row: DifferenceReportPositionDto) {
@@ -63,13 +71,13 @@ export class DifferenceReportComponent {
     console.log("createDifferenceReport")
   }
 
-  async openAddNewCommodityDialog() {
-    const data = await this.differenceReportService.getAvailableCommodities(this.reportId);
-    this.dialog.open(NewCommodityComponent, {data: data})
-      .afterClosed()
-      .subscribe(
-        result => console.log(result)
-      )
+  private async getData() {
+    this.report = await this.differenceReportService.getReport(this.reportId);
+
+    this.dataSource = new MatTableDataSource(this.report.differenceReportPositions);
+    this.title = this.initialTitle + " " + this.report.deliveryOrderNumber;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 }

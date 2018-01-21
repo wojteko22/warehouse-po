@@ -26,7 +26,7 @@ class Commodity(id: EntityID<Int>) : IntEntity(id) {
     private var measure by Measure referencedOn Commodities.measure
     private var producer by Producer referencedOn Commodities.producer
 
-    fun toDto() = CommodityDto(code, name, measure.name, producer.name)
+    fun toDto() = CommodityDto(id.value, code, name, measure.name, producer.name)
 }
 
 object Commodities : InitializableTable() {
