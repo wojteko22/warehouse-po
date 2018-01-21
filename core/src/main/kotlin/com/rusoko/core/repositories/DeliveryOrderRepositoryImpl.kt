@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component
 @Component
 class DeliveryOrderRepositoryImpl : DeliveryOrderRepository {
 
-    override val all: Collection<DeliveryOrderDto>
+    override val unverified: Collection<DeliveryOrderDto>
         get() = connect {
-            DeliveryOrder.all().map { it.toDto() }
+            DeliveryOrder.all().filter { !it.verified }.map { it.toDto() }
         }
 
     override fun get(orderId: Int) = connect {

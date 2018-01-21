@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 class DeliveryOrderController(private val repository: DeliveryOrderRepository) {
 
     @GetMapping
-    fun getAll() = repository.all
+    fun getUnverified() = repository.unverified
 
     @GetMapping("/{orderId}")
     fun getById(@PathVariable orderId: Int) = repository[orderId]

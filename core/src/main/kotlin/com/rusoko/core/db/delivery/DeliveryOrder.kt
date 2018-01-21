@@ -28,6 +28,8 @@ class DeliveryOrder(id: EntityID<Int>) : IntEntity(id) {
     private var provider by Provider referencedOn DeliveryOrders.provider
 
     val positions by DeliveryOrderPosition referrersOn DeliveryOrderPositions.deliveryOrder
+    private val differenceReports by DifferenceReport referrersOn DifferenceReports.deliveryOrder
+    val verified get() = differenceReports.filter { it.ready }.size == 1
 
     fun toDto() = DeliveryOrderDto(id.toString(), orderNumber, predictedDeliveryDate.toLocalDate().toString(), provider.name)
     fun toDetailDto() = DeliveryOrderDetailDto(orderNumber, provider.name, positions.map { it.toDto() })
