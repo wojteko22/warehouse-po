@@ -71,7 +71,7 @@ export class DifferenceReportComponent {
   }
 
   getDifference(row: DifferenceReportPositionDto) {
-    return Math.round((parseFloat(row.orderedQuantity) - parseFloat(row.deliveredQuantity)) * 100) / 100;
+    return row.orderedQuantity - row.deliveredQuantity;
   }
 
   makeDifferenceReport() {
@@ -113,5 +113,9 @@ export class DifferenceReportComponent {
     this.title = this.initialTitle + " " + this.report.deliveryOrderNumber;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  async savePosition(position: DifferenceReportPositionDto) {
+    await this.differenceReportPositionService.savePosition(position.id, position.deliveredQuantity);
   }
 }
