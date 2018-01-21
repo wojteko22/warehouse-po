@@ -2,13 +2,15 @@ import {Component, ViewChild} from "@angular/core";
 import {MdIconsDefinitions} from "../../../md-icons-definitions";
 import {DifferenceReportService} from "../difference-report.service";
 import {DifferenceReportPositionService} from "../difference-report-position.service";
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {ActivatedRoute} from "@angular/router";
+import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from "@angular/material";
+import {ActivatedRoute, Router} from "@angular/router";
 import {DeliveryOrderService} from "../../delivery-order.service";
 import {SelectionModel} from "@angular/cdk/collections";
 import {NewCommodityComponent} from "../../new-commodity/new-commodity.component";
 import {DifferenceReportDto} from "../../../model/dto/difference-report-dto";
 import {DifferenceReportPositionDto} from "../../../model/dto/difference-report-position-dto";
+import {DialogData} from "../../../shared-module/dialog/dialog-data";
+import {DialogComponent} from "../../../shared-module/dialog/dialog.component";
 
 @Component({
   selector: 'difference-report',
@@ -39,7 +41,8 @@ export class DifferenceReportComponent {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private deliveryOrdersService: DeliveryOrderService, private differenceReportService: DifferenceReportService,
-              private differenceReportPositionService: DifferenceReportPositionService, private route: ActivatedRoute, private dialog: MatDialog) {
+              private differenceReportPositionService: DifferenceReportPositionService, private route: ActivatedRoute,
+              private dialog: MatDialog, private router: Router, private snackBar: MatSnackBar) {
     this.route.params.subscribe(params => {
       this.orderId = params['id'];
       this.initDataSource()
@@ -68,7 +71,35 @@ export class DifferenceReportComponent {
   }
 
   makeDifferenceReport() {
-    console.log("createDifferenceReport")
+    const data: DialogData = {
+      title: "",
+      message: "Czy na pewno chcesz wysłać protokół różnic do działu zaopatrzenia?"
+    };
+    this.dialog.open(DialogComponent, {data: data}).afterClosed().subscribe(
+      response => this.sendReportIfRequested(response)
+    );
+  }
+
+  private sendReportIfRequested(requested: boolean) {
+    if (requested) {
+      this.sendReport();
+    }
+  }
+
+  private async sendReport() {
+    await this.differenceReportService.send(this.reportId);
+    await this.router.navigate(['deliveryOrder/all']);
+    this.displayPrompt();
+  }
+
+  private displayPrompt() {
+    this.openSnackBar("Protokół różnic został wysłany");
+  }
+
+  private openSnackBar(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 3000,
+    });
   }
 
   private async getData() {

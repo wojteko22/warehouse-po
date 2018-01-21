@@ -28,4 +28,8 @@ export class DifferenceReportService {
     const params = new HttpParams().set('commodityId', commodityId.toString());
     return this.http.post(this.baseUrl + '/' + reportId + '/positions', params).toPromise();
   }
+
+  send(id: string): Promise<Object> {
+    return this.http.patch(this.baseUrl + '/' + id, null).toPromise()
+  }
 }
