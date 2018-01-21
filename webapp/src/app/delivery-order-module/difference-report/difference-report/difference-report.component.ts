@@ -51,14 +51,18 @@ export class DifferenceReportComponent {
 
   async openAddNewCommodityDialog() {
     const data = await this.differenceReportService.getAvailableCommodities(this.reportId);
-    this.dialog.open(NewCommodityComponent, {data: data})
-      .afterClosed()
-      .subscribe(
-        commodity =>
-          this.differenceReportService.addCommodity(this.reportId, commodity.id).then(
-            () => this.getData()
-          )
+    this.dialog.open(NewCommodityComponent, {data: data}).afterClosed().subscribe(commodity =>
+      this.differenceReportService.addCommodity(this.reportId, commodity.id).then(
+        () => this.getData()
       )
+    )
+  }
+
+  everythingChecked(): boolean {
+    if (!this.report) {
+      return false;
+    }
+    return this.selection.selected.length === this.report.differenceReportPositions.length;
   }
 
   private async initDataSource() {
@@ -110,5 +114,4 @@ export class DifferenceReportComponent {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
 }

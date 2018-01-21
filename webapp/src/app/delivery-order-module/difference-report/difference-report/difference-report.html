@@ -1,7 +1,9 @@
 <menu-content [title]='this.title' [menuOptions]='this.menuOpions'>
   <div>
     <button mat-raised-button color="primary" (click)="this.openAddNewCommodityDialog()">Dodaj pozycję</button>
-    <button mat-raised-button color="primary" (click)="this.makeDifferenceReport()">Wyślij protokół różnic</button>
+    <button mat-raised-button color="primary" (click)="this.makeDifferenceReport()"
+            [disabled]="!everythingChecked()">Wyślij protokół różnic
+    </button>
   </div>
   <div class="example-container mat-elevation-z8">
 
@@ -32,7 +34,7 @@
         <mat-cell *matCellDef="let row">
           <mat-form-field>
             <input matInput="" placeholder="Wpisz ilość" type="number"
-            [(ngModel)]="row.deliveredQuantity">
+                   [(ngModel)]="row.deliveredQuantity" [disabled]="selection.isSelected(row)">
           </mat-form-field>
         </mat-cell>
       </ng-container>
