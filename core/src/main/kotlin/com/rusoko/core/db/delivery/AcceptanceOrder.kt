@@ -10,7 +10,6 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.transactions.transaction
 
 fun main(args: Array<String>) {
     connect {
@@ -33,12 +32,19 @@ object AcceptanceOrders : InitializableTable("acceptance_orders") {
 
     override fun init() {
         SchemaUtils.new(this)
-        val deliveryOrderId = transaction { DeliveryOrders.insertAndGetId().value }
+        val deliveryOrderId = DeliveryOrders.insertAndGetId()
+        DeliveryOrderPositions.insertTo(deliveryOrderId)
         val differenceReportRepository = DifferenceReportRepositoryImpl()
-        val differenceReportId = differenceReportRepository.createDefault(deliveryOrderId)
+        val differenceReportId = differenceReportRepository.createDefault(deliveryOrderId.value)
         differenceReportRepository.send(differenceReportId)
         AcceptanceOrders.insert {
             it[differenceReport] = EntityID(differenceReportId, DifferenceReports)
+        }
+        DifferenceReport[differenceReportId].positions.forEach {
+            AcceptanceOrderPosition.new {
+                differenceReportPosition = it
+                quantityToAccept = it.deliveredQuantity
+            }
         }
     }
 }

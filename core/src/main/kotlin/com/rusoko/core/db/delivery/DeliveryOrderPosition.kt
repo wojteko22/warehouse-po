@@ -35,11 +35,17 @@ object DeliveryOrderPositions : InitializableTable("delivery_order_positions") {
     override fun init() {
         SchemaUtils.new(this)
 
+        DeliveryOrder.all().forEach {
+            insertTo(it.id)
+        }
+    }
+
+    fun insertTo(deliveryOrderId: EntityID<Int>) {
         repeat(10) {
             val randomQuantity = random.nextInt(1000000000).toDouble() / 1000
             insert {
                 it[quantity] = BigDecimal(randomQuantity)
-                it[deliveryOrder] = DeliveryOrder.random().id
+                it[DeliveryOrderPositions.deliveryOrder] = deliveryOrderId
                 it[commodity] = Commodity.random().id
             }
         }
