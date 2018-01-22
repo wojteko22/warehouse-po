@@ -63,15 +63,15 @@ fun main(args: Array<String>) {
 }
 
 fun insertPermissions() {
-    Permission.new { permissionName = "magazynier przyjmujący" }
-    Permission.new { permissionName = "magazynier wydający" }
+    Permission.new { permissionName = "magazynier przyjmujacy" }
+    Permission.new { permissionName = "magazynier wydajacy" }
     Permission.new { permissionName = "administrator" }
     Permission.new { permissionName = "snoorlak" }
 }
 
 fun testInsertUser() {
     val userRegisterDto = UserRegisterDto("Zdzislaw", "Poniedzielski",
-            "lubieplacki@gmail.com", setOf("snoorlak", "magazynier wydający"))
+            "lubieplacki@gmail.com", setOf("snoorlak", "magazynier wydajacy"))
 
     UserRepositoryImpl().add(userRegisterDto)
 }
