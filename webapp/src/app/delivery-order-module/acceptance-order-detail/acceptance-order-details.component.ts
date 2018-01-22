@@ -8,8 +8,8 @@ import {AcceptanceOrderService} from "../acceptance-orders/acceptance-order.serv
 import {AcceptanceOrderDetailsDto} from "../../model/dto/acceptance-order-details-dto";
 
 @Component({
-  selector: 'delivery-order-details',
-  templateUrl: './delivery-order-details.html',
+  selector: 'acceptance-order-details',
+  templateUrl: './acceptance-order-details.html',
   providers: [AcceptanceOrderService]
 })
 

@@ -35,8 +35,6 @@ export class AcceptanceOrdersComponent {
   }
 
   async selectRow(row: AcceptanceOrderDto) {
-    const data = await this.acceptanceOrdersService.get(row.id);
-    console.log(data); // todo: Usunąć
     this.router.navigateByUrl('/deliveryOrder/acceptanceOrders/' + row.id)
   }
 
