@@ -11,6 +11,7 @@ import {DifferenceReportDto} from "../../../model/dto/difference-report-dto";
 import {DifferenceReportPositionDto} from "../../../model/dto/difference-report-position-dto";
 import {DialogData} from "../../../shared-module/dialog/dialog-data";
 import {DialogComponent} from "../../../shared-module/dialog/dialog.component";
+import {deliveryOrderMenu} from "../../delivery-order-menu";
 
 @Component({
   selector: 'difference-report',
@@ -23,13 +24,7 @@ export class DifferenceReportComponent {
   mdIcons = MdIconsDefinitions;
   initialTitle: string = "Protokół różnic";
   title: string = this.initialTitle;
-  menuOpions: MenuElements[] = [
-    {
-      icon: this.mdIcons.start_page,
-      optionName: "Strona główna",
-      routerLink: ""
-    }
-  ];
+  menuOpions: MenuElements[] = deliveryOrderMenu;
   displayedColumns = ['code', 'name', 'quantity', 'measure', 'deliveredQuantity', 'difference', 'select'];
   dataSource: MatTableDataSource<DifferenceReportPositionDto>;
   orderId: string;

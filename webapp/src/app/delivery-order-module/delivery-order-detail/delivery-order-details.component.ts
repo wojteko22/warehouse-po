@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {DeliveryOrderPositionDto} from "../../model/dto/delivery-order-position-dto";
 import {DeliveryOrderDetailsDto} from "../../model/dto/delivery-order-details-dto";
+import {deliveryOrderMenu} from "../delivery-order-menu";
 
 @Component({
   selector: 'delivery-order-details',
@@ -17,13 +18,7 @@ export class DeliveryOrderDetailsComponent {
 
   mdIcons = MdIconsDefinitions;
   title: string = "Zamówienie";
-  menuOpions: MenuElements[] = [
-    {
-      icon: this.mdIcons.start_page,
-      optionName: "Strona główna",
-      routerLink: ""
-    }
-  ];
+  menuOpions: MenuElements[] = deliveryOrderMenu;
   displayedColumns = ['code', 'name', 'quantity', 'measure'];
   dataSource: MatTableDataSource<DeliveryOrderPositionDto>;
   orderId: string;
