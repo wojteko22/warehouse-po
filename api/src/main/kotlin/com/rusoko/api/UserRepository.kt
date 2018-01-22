@@ -28,7 +28,7 @@ interface UserRepository {
     fun exist(userMail: String): Boolean
 
     /**
-     * List of all available user permissions
+     * @property permissions list of all available user permissions
      */
     val permissions: List<String>
 }
