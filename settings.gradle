@@ -2,4 +2,5 @@ rootProject.name = 'warehouse'
 include 'core'
 include 'api'
 include 'controller'
+include 'selenium'
 
