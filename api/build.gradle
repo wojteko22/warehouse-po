@@ -5,10 +5,20 @@ buildscript {
 
     repositories {
         mavenCentral()
+        jcenter()
+
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VER"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.15"
+
     }
+}
+apply plugin: 'org.jetbrains.dokka'
+
+dokka {
+    outputFormat = "javadoc"
+    outputDirectory = "D:/Study/po/dokkaJavadoc"
 }
 
 apply plugin: 'kotlin'
