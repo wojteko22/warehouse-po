@@ -38,6 +38,11 @@ object AcceptanceOrderPositions : InitializableTable("acceptance_order_positions
 
     override fun init() {
         SchemaUtils.new(this)
+        generateAcceptanceOrder { it.deliveredQuantity }
+        generateAcceptanceOrder { BigDecimal(0) }
+    }
+
+    private fun generateAcceptanceOrder(amount: (DifferenceReportPosition) -> BigDecimal) {
         val deliveryOrderId = DeliveryOrders.insertAndGetId()
         DeliveryOrderPositions.insertTo(deliveryOrderId)
         val differenceReportRepository = DifferenceReportRepositoryImpl()
@@ -56,7 +61,7 @@ object AcceptanceOrderPositions : InitializableTable("acceptance_order_positions
                 AcceptanceOrderPositions.insert {
                     it[differenceReportPosition] = position.id
                     it[acceptanceOrder] = acceptanceOrderId
-                    it[quantityToAccept] = position.deliveredQuantity
+                    it[quantityToAccept] = amount(position)
                 }
         }
     }
