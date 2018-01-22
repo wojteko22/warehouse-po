@@ -1,9 +1,9 @@
 package com.rusoko.core.repositories
 
+import com.rusoko.api.UserRepository
 import com.rusoko.api.dto.AddressDto
 import com.rusoko.api.dto.UserConfigurationDto
 import com.rusoko.api.dto.UserRegisterDto
-import com.rusoko.api.UserRepository
 import com.rusoko.core.connect
 import com.rusoko.core.db.user.*
 import org.jetbrains.exposed.dao.EntityID
@@ -63,15 +63,15 @@ fun main(args: Array<String>) {
 }
 
 fun insertPermissions() {
-    Permission.new { permissionName = "magazynier przyjmujacy" }
-    Permission.new { permissionName = "magazynier wydajacy" }
+    Permission.new { permissionName = "magazynier przyjmujący" }
+    Permission.new { permissionName = "magazynier wydający" }
     Permission.new { permissionName = "administrator" }
     Permission.new { permissionName = "snoorlak" }
 }
 
 fun testInsertUser() {
     val userRegisterDto = UserRegisterDto("Zdzislaw", "Poniedzielski",
-            "lubieplacki@gmail.com", setOf("snoorlak", "magazynier wydajacy"))
+            "lubieplacki@gmail.com", setOf("snoorlak", "magazynier wydający"))
 
     UserRepositoryImpl().add(userRegisterDto)
 }
