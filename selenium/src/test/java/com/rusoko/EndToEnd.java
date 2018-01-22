@@ -63,6 +63,21 @@ public class EndToEnd {
         assert(text.contains("nieprawidłowy"));
     }
 
+    @Test
+    public void testD() throws Exception {
+        driver.get(baseUrl + "/user");
+        driver.findElement(By.id("mat-input-0")).clear();
+        driver.findElement(By.id("mat-input-0")).sendKeys("Adam");
+        driver.findElement(By.id("mat-input-1")).clear();
+        driver.findElement(By.id("mat-input-1")).sendKeys("Nowak");
+        driver.findElement(By.id("mat-input-2")).clear();
+        driver.findElement(By.id("mat-input-2")).sendKeys("lubieplacki@gmail.com");
+        driver.findElement(By.id("registerBtn")).click();
+        String text = driver.findElement(By.id("mat-error-5")).getText();
+        System.out.println(text);
+        assert(text.contains("już istnieje"));
+    }
+
     @After
     public void tearDown() throws Exception {
         driver.quit();
