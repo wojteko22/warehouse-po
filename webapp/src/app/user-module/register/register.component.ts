@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {UserService} from "../user.service";
 import {MdIconsDefinitions} from "../../md-icons-definitions";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ErrorStateMatcher, MatSelectionList} from "@angular/material";
+import {ErrorStateMatcher, MatSelectionList, MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'user-register',
@@ -31,13 +31,13 @@ export class UserRegisterComponent implements OnInit {
   @ViewChild(MatSelectionList) userPermissions: MatSelectionList;
   isExistEmail = false;
   errorMatcher: ErrorStateMatcher = {
-    isErrorState: (control: FormControl | null): boolean  => {
+    isErrorState: (control: FormControl | null): boolean => {
       return !!(control && (control.invalid || this.isExistEmail) && control.touched);
     }
   };
   permissions = [];
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) {
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -64,10 +64,25 @@ export class UserRegisterComponent implements OnInit {
     const userDto = this.userData;
     this.isExistEmail = await this.userService.getIsExistEmail(userDto.email);
     if (!this.isExistEmail) {
-      this.userService.postUserData(userDto);
-      this.userDataForm.reset();
-      this.userPermissions.deselectAll()
+      this.sendDataAndClear(userDto)
     }
+  }
+
+  private sendDataAndClear(userDto: UserRegisterDto) {
+    this.userService.postUserData(userDto);
+    this.clearForm();
+    this.openSnackBar("Wyslano wiadomosc konfiuguracyjna na adres email " + userDto.email)
+  }
+
+  private clearForm() {
+    this.userDataForm.reset();
+    this.userPermissions.deselectAll()
+  }
+
+  private openSnackBar(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 3000,
+    });
   }
 
   private get userData(): UserRegisterDto {
