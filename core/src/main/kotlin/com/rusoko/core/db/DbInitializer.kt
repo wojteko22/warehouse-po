@@ -22,5 +22,7 @@ class DbInitializer : DataInitializer {
             SchemaUtils.drop(*deliveryTables)
             deliveryTables.reversedArray().forEach { it.init() }
         }
+
+        com.rusoko.core.repositories.main(arrayOf())
     }
 }
