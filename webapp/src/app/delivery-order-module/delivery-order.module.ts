@@ -6,6 +6,7 @@ import {DeliveryOrderDetailsComponent} from "./delivery-order-detail/delivery-or
 import {DifferenceReportComponent} from "./difference-report/difference-report/difference-report.component";
 import {NewCommodityComponent} from "./new-commodity/new-commodity.component";
 import {AcceptanceOrdersComponent} from "./acceptance-orders/acceptance-orders.component";
+import {AcceptanceOrderDetailsComponent} from "./acceptance-order-detail/acceptance-order-details.component";
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import {AcceptanceOrdersComponent} from "./acceptance-orders/acceptance-orders.c
     DifferenceReportComponent,
     NewCommodityComponent,
     AcceptanceOrdersComponent,
+    AcceptanceOrderDetailsComponent,
   ],
   entryComponents: [
     NewCommodityComponent
