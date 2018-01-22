@@ -27,7 +27,7 @@ class AcceptanceOrder(id: EntityID<Int>) : IntEntity(id) {
     private val acceptNone = positions.all { it.fraction.toDouble() == 0.0 }
 
     fun toDto() = AcceptanceOrderDto(id.value, deliveryOrder.orderNumber, deliveryOrder.provider.name)
-    fun toDetailDto() = AcceptanceOrderDetailDto(acceptAll, positions.map { it.toDto() })
+    fun toDetailDto() = AcceptanceOrderDetailDto(acceptAll.compareTo(acceptNone), positions.map { it.toDto() })
 }
 
 object AcceptanceOrders : InitializableTable("acceptance_orders") {
