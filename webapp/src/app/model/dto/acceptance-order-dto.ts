@@ -1,5 +1,5 @@
 export interface AcceptanceOrderDto {
-  id: string,
+  id: number,
   orderNumber: string;
   provider: string;
 }

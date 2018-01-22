@@ -8,7 +8,7 @@ import java.util.Random
 import kotlin.math.pow
 
 fun <T> connect(statement: Transaction.() -> T): T {
-    Database.connect("jdbc:mysql://localhost/warehouse", driver = "com.mysql.jdbc.Driver", user = "root")
+    // todo: Wywalić
     return transaction(statement)
 }
 

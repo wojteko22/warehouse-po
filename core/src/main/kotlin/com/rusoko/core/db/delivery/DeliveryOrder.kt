@@ -11,7 +11,7 @@ import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.insertAndGetId
 import org.joda.time.DateTime
 
 fun main(args: Array<String>) { // Needs Providers
@@ -45,12 +45,14 @@ object DeliveryOrders : InitializableTable("delivery_orders") {
         SchemaUtils.new(this)
 
         repeat(10) {
-            insert {
-                it[orderNumber] = "D-" + random.nextNumber(4)
-                it[orderDate] = DateTime.now().minusDays(random.nextInt(30))
-                it[predictedDeliveryDate] = DateTime.now().plusDays(random.nextInt(10))
-                it[provider] = Provider.random().id
-            }
+            insertAndGetId()
         }
     }
+
+    fun insertAndGetId(): EntityID<Int> = insertAndGetId {
+        it[orderNumber] = "D-" + random.nextNumber(4)
+        it[orderDate] = DateTime.now().minusDays(random.nextInt(30))
+        it[predictedDeliveryDate] = DateTime.now().plusDays(random.nextInt(10))
+        it[provider] = Provider.random().id
+    } ?: throw RuntimeException("Error during inserting")
 }

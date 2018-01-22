@@ -9,7 +9,6 @@ import {deliveryOrderMenu} from "../delivery-order-menu";
 @Component({
   selector: 'delivery-orders',
   templateUrl: './delivery-orders.html',
-  styleUrls: ['./delivery-orders.css'],
   providers: [DeliveryOrderService]
 })
 
