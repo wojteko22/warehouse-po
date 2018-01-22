@@ -1,4 +1,5 @@
 <menu-content [title]='this.title' [menuOptions]='this.menuOpions'>
+  <h1 *ngIf="orderDetails?.status === 1">Przyjąć wszystko</h1>
   <div class="example-container mat-elevation-z8">
     <mat-table [dataSource]="dataSource" matSort>
 
@@ -9,12 +10,12 @@
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa towaru</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.commodity?.commodityName}}</mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.commodity.commodityName}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="measure">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Jednostka miary</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.commodity?.measure}}</mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.commodity.measure}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="quantityToAccept">
