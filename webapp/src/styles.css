@@ -4,3 +4,11 @@
 .hoveredRow {
   background-color: rgba(172, 172, 172, 0.56);
 }
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  background-color: white;
+}

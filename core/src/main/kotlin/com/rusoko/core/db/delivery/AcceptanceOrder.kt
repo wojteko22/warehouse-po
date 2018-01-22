@@ -20,6 +20,7 @@ class AcceptanceOrder(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<AcceptanceOrder>(AcceptanceOrders)
 
     var differenceReport by DifferenceReport referencedOn AcceptanceOrders.differenceReport
+    var handled by AcceptanceOrders.handled
 
     private val positions by AcceptanceOrderPosition referrersOn AcceptanceOrderPositions.acceptanceOrder
     private val deliveryOrder get() = differenceReport.deliveryOrder
@@ -32,6 +33,7 @@ class AcceptanceOrder(id: EntityID<Int>) : IntEntity(id) {
 
 object AcceptanceOrders : InitializableTable("acceptance_orders") {
     val differenceReport = reference("difference_report", DifferenceReports)
+    val handled = bool("handled").default(false)
 
     override fun init() {
         SchemaUtils.new(this)
