@@ -9,10 +9,12 @@ import {AcceptanceOrderDetailsDto} from "../../model/dto/acceptance-order-detail
 import {DialogData} from "../../shared-module/dialog/dialog-data";
 import {DialogComponent} from "../../shared-module/dialog/dialog.component";
 import {RegistrationDocumentService} from "./registration-document.service";
+import {SelectionModel} from "@angular/cdk/collections";
 
 @Component({
   selector: 'acceptance-order-details',
   templateUrl: './acceptance-order-details.html',
+  styleUrls: ['../difference-report/difference-report/difference-report.css'],
   providers: [AcceptanceOrderService, RegistrationDocumentService]
 })
 
@@ -22,11 +24,12 @@ export class AcceptanceOrderDetailsComponent {
   title: string = "Zlecenie przyjęcia";
   menuOpions: MenuElements[] = deliveryOrderMenu;
 
-  displayedColumns = ['code', 'name', 'measure', 'quantityToAccept', 'fraction'];
+  displayedColumns = ['code', 'name', 'measure', 'quantityToAccept'];
 
   id: number;
   dataSource: MatTableDataSource<AcceptanceOrderPositionDto>;
   orderDetails: AcceptanceOrderDetailsDto;
+  selection = new SelectionModel<AcceptanceOrderPositionDto>(true, []);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -45,6 +48,9 @@ export class AcceptanceOrderDetailsComponent {
   private async initDataSource() {
     this.orderDetails = await this.acceptanceOrderSerivce.get(this.id);
     this.dataSource = new MatTableDataSource(this.orderDetails.positions);
+    if (this.orderDetails.status === 0) {
+      this.displayedColumns.push('fraction', 'select');
+    }
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -85,5 +91,12 @@ export class AcceptanceOrderDetailsComponent {
     this.snackBar.open(message, action, {
       duration: 3000,
     });
+  }
+
+  everythingChecked(): boolean {
+    if (!this.orderDetails) {
+      return false;
+    }
+    return this.selection.selected.length === this.orderDetails.positions.length;
   }
 }

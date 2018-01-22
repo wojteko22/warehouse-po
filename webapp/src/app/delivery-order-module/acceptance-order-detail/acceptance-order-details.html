@@ -1,6 +1,7 @@
 <menu-content [title]='this.title' [menuOptions]='this.menuOpions'>
   <h1 *ngIf="orderDetails?.status === 1">Przyjąć wszystko</h1>
   <h1 *ngIf="orderDetails?.status === -1">Nie przyjmować</h1>
+  <h1 *ngIf="orderDetails?.status === 0">Przyjąć część</h1>
 
   <button *ngIf="orderDetails?.status === -1" mat-raised-button color="primary" (click)="confirm()">
     OK
@@ -34,10 +35,20 @@
         <mat-cell *matCellDef="let row"> {{row.fraction}}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-    <button *ngIf="orderDetails?.status === 1" mat-raised-button color="primary" (click)="askIfGenerate()">
+    <button *ngIf="orderDetails?.status !== -1" [disabled]="orderDetails?.status === 0 && !everythingChecked()"
+            mat-raised-button color="primary" (click)="askIfGenerate()">
       Generuj dokument Pz
     </button>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

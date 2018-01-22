@@ -40,6 +40,7 @@ object AcceptanceOrderPositions : InitializableTable("acceptance_order_positions
         SchemaUtils.new(this)
         generateAcceptanceOrder { it.deliveredQuantity }
         generateAcceptanceOrder { BigDecimal(0) }
+        generateAcceptanceOrder { it.deliveredQuantity / BigDecimal(2) }
     }
 
     private fun generateAcceptanceOrder(amount: (DifferenceReportPosition) -> BigDecimal) {
