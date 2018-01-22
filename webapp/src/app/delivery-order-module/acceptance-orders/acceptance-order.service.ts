@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {DeliveryOrderDto} from "../../model/dto/delivery-order-dto";
+import {AcceptanceOrderDto} from "../../model/dto/acceptance-order-dto";
 
 @Injectable()
 export class AcceptanceOrderService {
@@ -10,7 +10,12 @@ export class AcceptanceOrderService {
   constructor(private http: HttpClient) {
   }
 
-  getUnhandled(): Promise<DeliveryOrderDto[]> {
-    return this.http.get<DeliveryOrderDto[]>(this.baseUrl).toPromise()
+  getUnhandled(): Promise<AcceptanceOrderDto[]> {
+    return this.http.get<AcceptanceOrderDto[]>(this.baseUrl).toPromise()
+  }
+
+  get(id: number) {
+    // todo: Detail
+    return this.http.get<AcceptanceOrderDto[]>(this.baseUrl + '/' + id).toPromise()
   }
 }

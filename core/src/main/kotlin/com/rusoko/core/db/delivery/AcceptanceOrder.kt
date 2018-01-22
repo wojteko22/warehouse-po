@@ -1,5 +1,6 @@
 package com.rusoko.core.db.delivery
 
+import com.rusoko.api.dto.AcceptanceOrderDetailDto
 import com.rusoko.api.dto.AcceptanceOrderDto
 import com.rusoko.core.connect
 import com.rusoko.core.db.InitializableTable
@@ -25,6 +26,7 @@ class AcceptanceOrder(id: EntityID<Int>) : IntEntity(id) {
     private val deliveryOrder get() = differenceReport.deliveryOrder
 
     fun toDto() = AcceptanceOrderDto(id.value, deliveryOrder.orderNumber, deliveryOrder.provider.name)
+    fun toDetailDto() = AcceptanceOrderDetailDto(2) // todo:
 }
 
 object AcceptanceOrders : InitializableTable("acceptance_orders") {

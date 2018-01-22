@@ -20,6 +20,8 @@ class AcceptanceOrderPosition(id: EntityID<Int>) : IntEntity(id) {
     var differenceReportPosition by DifferenceReportPosition referencedOn
             AcceptanceOrderPositions.differenceReportPosition
     var quantityToAccept by AcceptanceOrderPositions.quantityToAccept
+
+    val fraction get() = quantityToAccept / differenceReportPosition.deliveredQuantity
 }
 
 object AcceptanceOrderPositions : InitializableTable("acceptance_order_positions") {
