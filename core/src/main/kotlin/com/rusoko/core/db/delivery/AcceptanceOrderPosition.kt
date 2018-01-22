@@ -42,28 +42,29 @@ object AcceptanceOrderPositions : InitializableTable("acceptance_order_positions
         generateAcceptanceOrder { BigDecimal(0) }
         generateAcceptanceOrder { it.deliveredQuantity / BigDecimal(2) }
     }
+}
 
-    private fun generateAcceptanceOrder(amount: (DifferenceReportPosition) -> BigDecimal) {
-        val deliveryOrderId = DeliveryOrders.insertAndGetId()
-        DeliveryOrderPositions.insertTo(deliveryOrderId)
-        val differenceReportRepository = DifferenceReportRepositoryImpl()
-        val differenceReportId = differenceReportRepository.createDefault(deliveryOrderId.value)
+fun generateAcceptanceOrder(amount: (DifferenceReportPosition) -> BigDecimal): Int {
+    val deliveryOrderId = DeliveryOrders.insertAndGetId()
+    DeliveryOrderPositions.insertTo(deliveryOrderId)
+    val differenceReportRepository = DifferenceReportRepositoryImpl()
+    val differenceReportId = differenceReportRepository.createDefault(deliveryOrderId.value)
 
-        DifferenceReport[differenceReportId].positions.forEach {
-            it.deliveredQuantity = BigDecimal(100)
-        }
-        differenceReportRepository.send(differenceReportId)
-
-        val acceptanceOrderId = AcceptanceOrders.insertAndGetId {
-            it[differenceReport] = EntityID(differenceReportId, DifferenceReports)
-        } ?: throw RuntimeException("Error during inserting")
-        DifferenceReport[differenceReportId].positions.forEach { position ->
-            if (position.deliveredQuantity > BigDecimal(0))
-                AcceptanceOrderPositions.insert {
-                    it[differenceReportPosition] = position.id
-                    it[acceptanceOrder] = acceptanceOrderId
-                    it[quantityToAccept] = amount(position)
-                }
-        }
+    DifferenceReport[differenceReportId].positions.forEach {
+        it.deliveredQuantity = BigDecimal(100)
     }
+    differenceReportRepository.send(differenceReportId)
+
+    val acceptanceOrderId = AcceptanceOrders.insertAndGetId {
+        it[differenceReport] = EntityID(differenceReportId, DifferenceReports)
+    } ?: throw RuntimeException("Error during inserting")
+    DifferenceReport[differenceReportId].positions.forEach { position ->
+        if (position.deliveredQuantity > BigDecimal(0))
+            AcceptanceOrderPositions.insert {
+                it[differenceReportPosition] = position.id
+                it[acceptanceOrder] = acceptanceOrderId
+                it[quantityToAccept] = amount(position)
+            }
+    }
+    return acceptanceOrderId.value
 }
