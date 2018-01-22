@@ -18,4 +18,6 @@ interface AcceptanceOrderRepository {
      * @return details about specified acceptance order
      */
     operator fun get(id: Int): AcceptanceOrderDetailDto
+
+    fun confirm(id: Int)
 }

@@ -18,4 +18,8 @@ export class AcceptanceOrderService {
   get(id: number): Promise<AcceptanceOrderDetailsDto> {
     return this.http.get<AcceptanceOrderDetailsDto>(this.baseUrl + '/' + id).toPromise()
   }
+
+  confirm(id: number): Promise<Object> {
+    return this.http.patch(this.baseUrl + '/' + id, null).toPromise();
+  }
 }

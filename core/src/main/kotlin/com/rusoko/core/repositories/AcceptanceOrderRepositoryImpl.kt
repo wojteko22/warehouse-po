@@ -19,4 +19,8 @@ class AcceptanceOrderRepositoryImpl : AcceptanceOrderRepository {
     override fun get(id: Int): AcceptanceOrderDetailDto = transaction {
         AcceptanceOrder[id].toDetailDto()
     }
+
+    override fun confirm(id: Int) {
+        transaction { AcceptanceOrder[id].handled = true }
+    }
 }

@@ -1,7 +1,7 @@
 import {Component, ViewChild} from "@angular/core";
 import {MdIconsDefinitions} from "../../md-icons-definitions";
 import {ActivatedRoute, Router} from "@angular/router";
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from "@angular/material";
 import {deliveryOrderMenu} from "../delivery-order-menu";
 import {AcceptanceOrderPositionDto} from "../../model/dto/acceptance-order-position-dto";
 import {AcceptanceOrderService} from "../acceptance-orders/acceptance-order.service";
@@ -34,7 +34,8 @@ export class AcceptanceOrderDetailsComponent {
   constructor(private acceptanceOrderSerivce: AcceptanceOrderService,
               private registrationDocumentSerivce: RegistrationDocumentService,
               private route: ActivatedRoute,
-              private dialog: MatDialog, private router: Router) {
+              private dialog: MatDialog, private snackBar: MatSnackBar,
+              private router: Router) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -66,6 +67,23 @@ export class AcceptanceOrderDetailsComponent {
 
   private async generateDocument() {
     await this.registrationDocumentSerivce.generate(this.id);
+    await this.navigate();
+    this.openSnackBar('Wygenerowano Przychód zewnętrzny dla zamówienia', 'ZOBACZ');
+  }
+
+  async confirm() {
+    this.acceptanceOrderSerivce.confirm(this.id);
+    await this.navigate();
+    this.openSnackBar('Obsłużono zlecenie przyjęcia');
+  }
+
+  private async navigate() {
     await this.router.navigate(['deliveryOrder/acceptanceOrders']);
+  }
+
+  private openSnackBar(message: string, action: string = null) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 }

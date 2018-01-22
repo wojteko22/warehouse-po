@@ -1,5 +1,11 @@
 <menu-content [title]='this.title' [menuOptions]='this.menuOpions'>
   <h1 *ngIf="orderDetails?.status === 1">Przyjąć wszystko</h1>
+  <h1 *ngIf="orderDetails?.status === -1">Nie przyjmować</h1>
+
+  <button *ngIf="orderDetails?.status === -1" mat-raised-button color="primary" (click)="confirm()">
+    OK
+  </button>
+
   <div class="example-container mat-elevation-z8">
     <mat-table [dataSource]="dataSource" matSort>
 
@@ -31,7 +37,9 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-    <button mat-raised-button color="primary" (click)="askIfGenerate()">Generuj dokument Pz</button>
+    <button *ngIf="orderDetails?.status === 1" mat-raised-button color="primary" (click)="askIfGenerate()">
+      Generuj dokument Pz
+    </button>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
 </menu-content>
