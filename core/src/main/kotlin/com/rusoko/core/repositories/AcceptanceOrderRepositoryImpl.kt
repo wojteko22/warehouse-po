@@ -13,7 +13,7 @@ class AcceptanceOrderRepositoryImpl : AcceptanceOrderRepository {
 
     override val unhandled: Collection<AcceptanceOrderDto>
         get() = connect {
-            AcceptanceOrder.all().map { it.toDto() } // todo: Nieobsłużone
+            AcceptanceOrder.all().filter { !it.handled }.map { it.toDto() }
         }
 
     override fun get(id: Int): AcceptanceOrderDetailDto = transaction {
