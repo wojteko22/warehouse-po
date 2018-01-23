@@ -13,6 +13,10 @@ import java.util.concurrent.TimeUnit
 class EndToEnd {
     private lateinit var driver: WebDriver
     private val baseUrl = "http://localhost:4200/"
+    private val firstNameBox get() = driver.findElement(By.id("mat-input-0"))
+    private val lastNameBox get() = driver.findElement(By.id("mat-input-1"))
+    private val emailBox get() = driver.findElement(By.id("mat-input-2"))
+    private val checkBox get() = driver.findElement(By.cssSelector("mat-pseudo-checkbox.mat-pseudo-checkbox"))
 
     @Before
     fun setUp() {
@@ -21,55 +25,53 @@ class EndToEnd {
     }
 
     @Test
-    fun testA() {
+    fun `button should be enabled if data is correct`() {
         driver.get(baseUrl + "/user")
-        driver.findElement(By.id("mat-input-0")).clear()
-        driver.findElement(By.id("mat-input-0")).sendKeys("Adam")
-        driver.findElement(By.id("mat-input-1")).clear()
-        driver.findElement(By.id("mat-input-1")).sendKeys("Nowak")
-        driver.findElement(By.id("mat-input-2")).clear()
-        driver.findElement(By.id("mat-input-2")).sendKeys("abc@asdfasdf.pl")
-        driver.findElement(By.cssSelector("mat-pseudo-checkbox.mat-pseudo-checkbox")).click()
+        firstNameBox.clear()
+        firstNameBox.sendKeys("Adam")
+        lastNameBox.clear()
+        lastNameBox.sendKeys("Nowak")
+        emailBox.clear()
+        emailBox.sendKeys("abc@asdfasdf.pl")
+        checkBox.click()
         val enabled = driver.findElement(By.id("registerBtn")).isEnabled
         assert(enabled)
     }
 
     @Test
-    fun testB() {
+    fun `button should not be enabled if email is empty`() {
         driver.get(baseUrl + "/user")
-        driver.findElement(By.id("mat-input-0")).clear()
-        driver.findElement(By.id("mat-input-0")).sendKeys("Adam")
-        driver.findElement(By.id("mat-input-1")).clear()
-        driver.findElement(By.id("mat-input-1")).sendKeys("Nowak")
-        driver.findElement(By.cssSelector("mat-pseudo-checkbox.mat-pseudo-checkbox")).click()
+        firstNameBox.clear()
+        firstNameBox.sendKeys("Adam")
+        lastNameBox.clear()
+        lastNameBox.sendKeys("Nowak")
+        checkBox.click()
         val enabled = driver.findElement(By.id("registerBtn")).isEnabled
         assert(!enabled)
     }
 
 
     @Test
-    fun testC() {
+    fun `proper message should be displayed if email is in invalid format`() {
         driver.get(baseUrl + "/user")
-        driver.findElement(By.id("mat-input-2")).clear()
-        driver.findElement(By.id("mat-input-2")).sendKeys("abc")
-        driver.findElement(By.cssSelector("mat-pseudo-checkbox.mat-pseudo-checkbox")).click()
+        emailBox.clear()
+        emailBox.sendKeys("abc")
+        checkBox.click()
         val text = driver.findElement(By.id("mat-error-3")).text
-        println(text)
         assert(text.contains("nieprawidłowy"))
     }
 
     @Test
-    fun testD() {
+    fun `proper message should be displayed if a user with given email exists`() {
         driver.get(baseUrl + "/user")
-        driver.findElement(By.id("mat-input-0")).clear()
-        driver.findElement(By.id("mat-input-0")).sendKeys("Adam")
-        driver.findElement(By.id("mat-input-1")).clear()
-        driver.findElement(By.id("mat-input-1")).sendKeys("Nowak")
-        driver.findElement(By.id("mat-input-2")).clear()
-        driver.findElement(By.id("mat-input-2")).sendKeys("lubieplacki@gmail.com")
+        firstNameBox.clear()
+        firstNameBox.sendKeys("Adam")
+        lastNameBox.clear()
+        lastNameBox.sendKeys("Nowak")
+        emailBox.clear()
+        emailBox.sendKeys("lubieplacki@gmail.com")
         driver.findElement(By.id("registerBtn")).click()
         val text = driver.findElement(By.id("mat-error-5")).text
-        println(text)
         assert(text.contains("już istnieje"))
     }
 
