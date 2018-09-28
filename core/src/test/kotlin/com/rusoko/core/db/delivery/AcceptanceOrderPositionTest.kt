@@ -13,7 +13,7 @@ class AcceptanceOrderPositionTest {
 
     @Before
     fun init() {
-        Database.connect("jdbc:mysql://localhost/warehouse_test", driver = "com.mysql.jdbc.Driver", user = "root")
+        Database.connect("jdbc:h2:~/Desktop/warehouse-test", driver = "org.h2.Driver")
         val deliveryTables = arrayOf(AcceptanceOrderPositions, AcceptanceOrders, DifferenceReportPositions,
                 DifferenceReports, DeliveryOrderPositions, DeliveryOrders, Commodities, Producers, Measures, Providers)
         connect {
