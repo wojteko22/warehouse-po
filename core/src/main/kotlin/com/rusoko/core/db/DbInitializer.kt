@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
 class DbInitializer : DataInitializer {
 
     override fun init() {
-        Database.connect("jdbc:mysql://localhost/warehouse", driver = "com.mysql.jdbc.Driver", user = "root")
+        Database.connect("jdbc:h2:~/Desktop/warehouse", driver = "org.h2.Driver", user = "root")
         val deliveryTables = arrayOf(AcceptanceOrderPositions, AcceptanceOrders, DifferenceReportPositions,
                 DifferenceReports, DeliveryOrderPositions, DeliveryOrders, Commodities, Producers, Measures, Providers)
         connect {

@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @SpringBootApplication
 class ControllerApplication {
@@ -16,9 +15,9 @@ class ControllerApplication {
 
     @Bean
     fun corsConfigurer(): WebMvcConfigurer =
-            object : WebMvcConfigurerAdapter() {
-                override fun addCorsMappings(registry: CorsRegistry?) {
-                    registry!!.addMapping("/**").allowedOrigins(*allowedOrigins)
+            object : WebMvcConfigurer {
+                override fun addCorsMappings(registry: CorsRegistry) {
+                    registry.addMapping("/**").allowedOrigins(*allowedOrigins)
                             .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH")
                 }
             }
